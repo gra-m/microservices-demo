@@ -16,15 +16,32 @@
 	<packaging>pom</packaging>
 	<name>microservices-demo</name>
 	<description>Microservices demo project for Spring Boot</description>
+	<modules>
+		<module>twitter-to-kafka-service</module>
+	</modules>
 
 	<properties>
 		<java.version>11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring-boot.version>2.3.4.RELEASE</spring-boot.version>
 		<maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
+		<twitter4j.version>4.0.7</twitter4j.version>
+		<lombok.version>1.18.16</lombok.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<scope>provided</scope> <!-- compile only tool hence 'provided'-->
+				<version>${lombok.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.twitter4j</groupId>
+				<artifactId>twitter4j-stream</artifactId>
+				<version>${twitter4j.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter</artifactId>
