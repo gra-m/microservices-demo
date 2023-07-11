@@ -1,0 +1,9 @@
+## prefix below must be set in @Configuration/@ConfigurationProperties
+twitter-to-kafka-service:
+  twitter-keywords:
+    - Java
+    - Microservices
+    - Spring
+    - Kafka
+    - Elasticsearch
+  welcome-message: "Hello and welcome to this Microservices Demo"
