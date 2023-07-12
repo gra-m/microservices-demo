@@ -1,5 +1,7 @@
 package com.microservices.demo.twitter.to.kafka.service;
-import config.TwitterToKafkaServiceConfigData;
+import com.microservices.demo.twitter.to.kafka.service.config.TwitterToKafkaServiceConfigData;
+import com.microservices.demo.twitter.to.kafka.service.runner.StreamRunner;
+import com.microservices.demo.twitter.to.kafka.service.runner.impl.TwitterKafkaStreamRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -24,10 +26,13 @@ import java.util.Arrays;
 @SpringBootApplication(scanBasePackages = "com.microservices.demo")
 public class TwitterToKafkaServiceApplication implements CommandLineRunner {
 private final TwitterToKafkaServiceConfigData twitterToKafkaServiceConfigData;
+private final StreamRunner streamRunner;
 private static final Logger LOG = LoggerFactory.getLogger(TwitterToKafkaServiceApplication.class);
 
-public TwitterToKafkaServiceApplication(TwitterToKafkaServiceConfigData configData) {
+public TwitterToKafkaServiceApplication(TwitterToKafkaServiceConfigData configData,
+                                        StreamRunner streamRunner) {
     this.twitterToKafkaServiceConfigData = configData;
+    this.streamRunner = streamRunner;
 }
 
 
@@ -43,6 +48,8 @@ public static void main(String[] args) {
 public void run(String... args) throws Exception {
     LOG.info(twitterToKafkaServiceConfigData.getWelcomeMessage());
     LOG.info(Arrays.toString(twitterToKafkaServiceConfigData.getTwitterKeywords().toArray(new String[] {})));
+    streamRunner.start();
+    LOG.info("StreamRunner has started listening to messages.");
     
 }
 
