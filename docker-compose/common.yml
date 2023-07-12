@@ -1,0 +1,9 @@
+## common network driver type when compose file is run network type will be saved as 'bridge' allows docker containers
+## to communicate over same bridge network. Containers only from the same (not other) bridge networks can communicate
+## with each other using hostnames.
+## If you were not to set this a default network requiring ip addresses would be set up by default.
+version: '3.7'
+
+networks:
+  application:
+    driver: bridge
