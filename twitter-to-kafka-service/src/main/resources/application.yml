@@ -6,4 +6,11 @@ twitter-to-kafka-service:
     - Spring
     - Kafka
     - Elasticsearch
-  welcome-message: "Hello and welcome to this Microservices Demo"
+  welcome-message: Hello and welcome to this Microservices Demo
+## Lecture 9 ignored as @ $100 pm a Twitter account that can read tweets is not viable enable-v2-tweets is included to see @ConditionalOnExpression
+  enable-v2-tweets: false
+  enable-mock-tweets: true
+  mock-min-tweet-length: 5
+  mock-max-tweet-length: 15
+  mock-sleep-ms: 10000
+  

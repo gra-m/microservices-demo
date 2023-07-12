@@ -14,4 +14,9 @@ public class TwitterToKafkaServiceConfigData {
 // note the application.yml  twitter-keywords becomes variable twitterKeywords
 private List<String> twitterKeywords;
 private String welcomeMessage;
+private Boolean enableV2Tweets;
+private Boolean enableMockTweets;
+private Integer mockMinTweetLength;
+private Integer mockMaxTweetLength;
+private Long mockSleepMs;
 }
