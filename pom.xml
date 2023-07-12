@@ -18,7 +18,8 @@
 	<description>Microservices demo project for Spring Boot</description>
 	<modules>
 		<module>twitter-to-kafka-service</module>
-	</modules>
+        <module>app-config-data</module>
+    </modules>
 
 	<properties>
 		<java.version>11</java.version>
@@ -28,13 +29,20 @@
 		<twitter4j.version>4.0.7</twitter4j.version>
 		<lombok.version>1.18.16</lombok.version>
 	</properties>
-
+	<!--Dependencies managed here available to submodules with versions controlled centrally-->
 	<dependencyManagement>
 		<dependencies>
+			<!--LOCAL-->
+			<dependency>
+				<groupId>com.microservices.demo</groupId>
+				<artifactId>app-config-data</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!--EXT-->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
-				<scope>provided</scope> <!-- compile only tool hence 'provided'-->
+				<scope>provided</scope> <!-- compile time only tool hence 'provided'-->
 				<version>${lombok.version}</version>
 			</dependency>
 			<dependency>

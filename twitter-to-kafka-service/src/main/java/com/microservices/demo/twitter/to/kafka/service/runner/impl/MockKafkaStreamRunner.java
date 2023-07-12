@@ -1,6 +1,6 @@
 package com.microservices.demo.twitter.to.kafka.service.runner.impl;
 
-import com.microservices.demo.twitter.to.kafka.service.config.TwitterToKafkaServiceConfigData;
+import com.microservices.demo.config.TwitterToKafkaServiceConfigData;
 import com.microservices.demo.twitter.to.kafka.service.exception.TwitterToKafkaServiceException;
 import com.microservices.demo.twitter.to.kafka.service.listener.TwitterKafkaStatusListener;
 import com.microservices.demo.twitter.to.kafka.service.runner.StreamRunner;
@@ -148,15 +148,17 @@ private static String formatStringAsJsonWithParams(String[] params) {
 
 private String getRandomTweetContent(String[] keywords, int minTweetLength, int maxTweetLength) {
     StringBuilder tweet = new StringBuilder();
-    int tweetLength = RANDOM.nextInt(maxTweetLength - minTweetLength + 1) + minTweetLength;    // without +1?
+    int tweetLength = RANDOM.nextInt((maxTweetLength - minTweetLength) + 1) + minTweetLength;
+    LOG.info("Tweet length is {}", tweetLength);
     return constructRandomTweet(keywords, tweet, tweetLength);
 }
 
 private static String constructRandomTweet(String[] keywords, StringBuilder tweet, int tweetLength) {
     for ( int i = 0; i < tweetLength; i++) {
         tweet.append(WORDS[RANDOM.nextInt(WORDS.length)]).append(" ");
-        if (i == tweetLength / 2) {
+       if (i == tweetLength / 2) {
             tweet.append(keywords[RANDOM.nextInt(keywords.length)]).append(" ");
+            LOG.info("Added keyword");
         }
     }
     return tweet.toString().trim();
