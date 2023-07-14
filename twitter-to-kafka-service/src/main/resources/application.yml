@@ -13,4 +13,12 @@ twitter-to-kafka-service:
   mock-min-tweet-length: 1
   mock-max-tweet-length: 2
   mock-sleep-ms: 10000
+## Hard-coded configuration values for variables defined and referred to in RetryConfigData app-config-data and RetryConfig common-config
+retry-config:
+  initial-interval-ms: 1000
+  max-interval-ms: 10000
+  multiplier: 2.0
+  maxAttempts: 3
+  sleep-time-ms: 2000
+
   
