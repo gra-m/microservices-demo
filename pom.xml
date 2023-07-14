@@ -19,7 +19,8 @@
 	<modules>
 		<module>twitter-to-kafka-service</module>
         <module>app-config-data</module>
-    </modules>
+		<module>kafka</module>
+	</modules>
 
 	<properties>
 		<java.version>11</java.version>
@@ -28,7 +29,9 @@
 		<maven-compiler-plugin-version>3.8.1</maven-compiler-plugin-version>
 		<twitter4j.version>4.0.7</twitter4j.version>
 		<lombok.version>1.18.16</lombok.version>
+		<avro.version>1.10.0</avro.version>
 	</properties>
+
 	<!--Dependencies managed here available to submodules with versions controlled centrally-->
 	<dependencyManagement>
 		<dependencies>
@@ -39,6 +42,11 @@
 				<version>${project.version}</version>
 			</dependency>
 			<!--EXT-->
+			<dependency>
+				<groupId>org.apache.avro</groupId>
+				<artifactId>avro</artifactId>
+				<version>${avro.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.projectlombok</groupId>
 				<artifactId>lombok</artifactId>
