@@ -13,7 +13,7 @@ private String bootstrapServers;
 private String schemaRegistryUrlKey;
 private String schemaRegistryUrl;
 private String topicName;
-private List<String> topicNameToCreate;
+private List<String> topicNamesToCreate;
 private Integer numOfPartitions;
 private Short replicationFactor;
 
