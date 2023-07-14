@@ -9,9 +9,13 @@ import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.admin.TopicListing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.ClientResponse;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,16 +30,19 @@ private final KafkaConfigData kafkaConfigData;
 private final RetryConfigData retryConfigData;
 private final AdminClient adminClient;
 private final RetryTemplate retryTemplate;
+private final WebClient webClient;
 
 
 public KafkaAdminClient(KafkaConfigData kafkaConfigData,
                         RetryConfigData retryConfigData,
                         AdminClient adminClient,
-                        RetryTemplate retryTemplate) {
+                        RetryTemplate retryTemplate,
+                        WebClient webClient) {
     this.kafkaConfigData = kafkaConfigData;
     this.retryConfigData = retryConfigData;
     this.adminClient = adminClient;
     this.retryTemplate = retryTemplate;
+    this.webClient = webClient;
 }
 
 public void createTopics() {
@@ -83,10 +90,6 @@ public void checkTopicsCreated() {
             topics = getTopics();
         }
     }
-
-
-
-    
 }
 
 private void sleep(Long sleepTimeMs) {
@@ -104,7 +107,38 @@ private void sleep(Long sleepTimeMs) {
  * other magic can happen with this knowledge??
  */
 public void checkSchemaRegistry() {
+    int retryCount = 1;
+    Integer maxRetry = retryConfigData.getMaxAttempts();
+    int multiplier = retryConfigData.getMultiplier().intValue();
+    Long sleepTimeMs = retryConfigData.getSleepTimeMs();
+
+    while(!getSchemaRegistryStatus().is2xxSuccessful()) {
+        checkMaxRetry(retryCount++, maxRetry);
+        sleep(sleepTimeMs);
+        sleepTimeMs *= multiplier;
+    }
     
+}
+
+/**
+ * NOTE: blocking the operation enables getting result synchronously from the schema registry.
+ * @return
+ */
+private HttpStatus getSchemaRegistryStatus() {
+    try {
+        return webClient
+        .method(HttpMethod.GET)
+        .uri(kafkaConfigData.getSchemaRegistryUrl())
+        .exchange()
+        .map(clientResponse -> clientResponse.statusCode())
+        .block();
+    }
+    catch( Exception e ) {
+        LOG.debug("Service unavailable detail ==" + e);
+       return HttpStatus.SERVICE_UNAVAILABLE;
+    }
+
+
 }
 
 private void checkMaxRetry(int i, Integer maxRetry) {
