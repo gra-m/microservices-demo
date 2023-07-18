@@ -33,7 +33,7 @@ public TwitterKafkaStatusListener(KafkaConfigData kafkaConfigData,
  */
 @Override
 public void onStatus(Status status) {
-    LOG.info("Received status text {} sending to kafka topic {}", status.getText(),
+    LOG.info("Received status text: '{}' now sending to kafka topic {}", status.getText(),
     kafkaConfigData.getTopicName());
     TwitterAvroModel avroModel = twitterStatusToAvroTransformer.getTwitterAvroModelFromStatus(status);
     // partitioning data by UserId on the kafka topic == each user id gets its own partition

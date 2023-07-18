@@ -1,7 +1,9 @@
 version: '3.7'
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:7.0.1
+    image: confluentinc/cp-zookeeper:${KAFKA_VERSION:-latest}
+    # observed working with confluentinc/ cp-schema-registry:5.0.4 and cp-kafka:5.0.4 and cp-zookeeper:5.0.4
+    #image: confluentinc/cp-zookeeper:5.0.4
     hostname: zookeeper
     ports:
       - "2181:2181"
