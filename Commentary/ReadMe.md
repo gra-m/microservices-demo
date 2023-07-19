@@ -7,9 +7,20 @@ At this point commit after: b711d87c057be57c273ff1f72d3bc813d3a1c0e3 the system 
 ## DOCKER
 - docker-compose -f common.yml -f k_cluster_zoo.yml up --remove-orphans
 - docker images
-- docker prune -a
+- docker image prune -a
 - docker ps
 - docker kill
+
+# MAVEN
+- To build microservice image without context test failing: 
+```ignorelang
+mvn clean install -DskipTests
+```
+- To change mvn version temporarily:
+```ignorelang
+export JAVA_HOME=~/.jdks/graalvm-ce-11
+```
+- *Or why not just use the maven console in intelliJ??*
 
 ## Kcat
 - kcat -L -b 127.0.0.1:19092

@@ -13,7 +13,7 @@ import javax.annotation.PreDestroy;
 import java.util.Arrays;
 import java.util.Objects;
 @Component
-@ConditionalOnProperty(name = "twitter-to-kafka-service.enable-mock-tweets", havingValue = "false", matchIfMissing = true)
+@ConditionalOnProperty(name = "twitter-to-kafka-service.enable-mock-tweets", havingValue = "false")
 public class TwitterKafkaStreamRunner implements StreamRunner {
 private static final Logger LOG = LoggerFactory.getLogger(TwitterKafkaStreamRunner.class);
 private final TwitterToKafkaServiceConfigData twitterToKafkaServiceConfigData;
