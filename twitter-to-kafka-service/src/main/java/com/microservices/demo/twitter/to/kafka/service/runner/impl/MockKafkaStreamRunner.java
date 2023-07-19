@@ -43,19 +43,19 @@ private static final String[] WORDS = new String[] {
 "thoughtfully",
 "underwent",
 "considered",
-"naughty",
+"amazing",
 "intrepid",
 "antiseptic",
 "amount",
 "amiable",
 "feral",
 "agnostic",
-"fantasist",
-"erogenous",
-"erroneous",
+"excellent",
+"fantastic",
+"content",
 "agile",
 "smooth",
-"moist"
+"fast"
 };
 
 private static final String tweetAsRawJson = "{" +

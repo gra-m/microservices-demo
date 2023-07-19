@@ -10,6 +10,8 @@ At this point commit after: b711d87c057be57c273ff1f72d3bc813d3a1c0e3 the system 
 - docker image prune -a
 - docker ps
 - docker kill
+- docker system prune -f
+- docker system prune -a == clean start
 
 # MAVEN
 - To build microservice image without context test failing: 
