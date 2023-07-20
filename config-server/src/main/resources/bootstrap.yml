@@ -2,11 +2,11 @@
 spring:
   application:
     name: configserver
-    # Set up as if using a shared network folder for config at present:
+    # Set up using absolute path of config-server-repository on local machine
   cloud:
     config:
       server:
         git:
-          uri: file://Users/Shared/projects/microservices-demo/config-server-repository
+          uri: file:/home/kali/IdeaProjects/microservices-demo/config-server-repository
           clone-on-start: true
     fail-fast: true

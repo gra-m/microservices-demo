@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: twitter-to-kafka-service
+  profiles:
+    active: twitter_to_kafka
+    # name includes the prefix config-client used in config-server-repository ymls config-client
+    # and config-client-twitter-to-kafka.yml
+  cloud:
+    config:
+      name: twitter-to-kafka-service,config-client
+      uri: http://localhost:8888

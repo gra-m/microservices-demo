@@ -13,7 +13,7 @@
     <artifactId>twitter-to-kafka-service</artifactId>
 
     <dependencies>
-        <!--Requirement start for twitter v2 api -->
+        <!--Requirement start for twitter v2 api not implemented -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
@@ -22,9 +22,10 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
-
-        <!--Requirement end included only as docker compose up was getting: Error response from daemon: Get "https://com.microservices/v2/": dial tcp: lookup com.microservices on 192.168.178.1:53: no such host
--->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.microservices.demo</groupId>
             <artifactId>app-config-data</artifactId>
