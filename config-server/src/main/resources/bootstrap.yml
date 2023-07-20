@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: configserver
+    # Set up as if using a shared network folder for config at present:
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://Users/Shared/projects/microservices-demo/config-server-repository
