@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="DEV_HOME" value="./twitter-to-kafka-service/logs"/>
-    <property name="APP_NAME" value="twitter-to-kafka-service"/>
+    <property name="DEV_HOME" value="./config-server/logs"/>
+    <property name="APP_NAME" value="config-server"/>
 
     <!-- logback-common.xml is in class path as included in resources folder of app-config-data, no need for path detail here -->
     <include resource="logback-common.xml"/>
-    
+
 </configuration>
