@@ -13,7 +13,12 @@
     <artifactId>twitter-to-kafka-service</artifactId>
 
     <dependencies>
-        <!--Requirement start for twitter v2 api not implemented -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        
+        <!--Requirements for twitter v2 api BUT not implemented -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>

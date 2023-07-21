@@ -12,3 +12,7 @@ spring:
           password: github_pat_Working_21072023_saved_elsewhere
           clone-on-start: true
     fail-fast: true
+  security:
+    user:
+      name: spring_cloud_user
+      password: winterSun_Pwd!
