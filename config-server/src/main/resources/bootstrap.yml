@@ -7,6 +7,8 @@ spring:
     config:
       server:
         git:
-          uri: file:/home/kali/IdeaProjects/microservices-demo/config-server-repository
+          uri: https://github.com/gra-m/cloud-config-server-repository.git
+          username: gra-m
+          password: github_pat_Working_21072023_saved_elsewhere
           clone-on-start: true
     fail-fast: true
