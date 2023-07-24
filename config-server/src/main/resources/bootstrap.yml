@@ -9,10 +9,10 @@ spring:
         git:
           uri: https://github.com/gra-m/cloud-config-server-repository.git
           username: gra-m
-          password: github_pat_Working_21072023_saved_elsewhere
+          password: '{cipher}18508b506cb6bddcc02b5c8a5c6ad76fe550bd8ccd5804279038d9470a382795c9ef7dcaae0bcf16376c171f9dfa2e17ea22a5f89919e234029c51fa50613548c0c9f4d2b34d293cbc5752c60d1e2f2f7b605276c4264d22c7e43b5ce95b2aca8c2f68dbe0d08c74097b7fdf5ed4550b'
           clone-on-start: true
     fail-fast: true
   security:
     user:
       name: spring_cloud_user
-      password: winterSun_Pwd!
+      password: '{cipher}bd7953d3927f2e32783052b0db0c49fbd4bed788ed1125856dd6d59b8abaac87'

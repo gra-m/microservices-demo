@@ -1,5 +1,22 @@
-Spring-cloud cli has been discontinued, so the ability to encrypt passwords via JCE is not covered in course
-will revert to Jasypt for now.
+# Setting up JCE Java Cryptographic Extensions
+
+With the discontinuation of the Spring-cloud cli the end points left open via [M] config-server/config/SecurityConfig
+can be used to encrypt/decrypt passwords.
+
+The Encrypt key needs to be set up as a system environment variable, the key for this
+can be found in cloud-config-server-repository2024_07_21 in memos. The git key for the
+config-server-repository will run out on that date.
+
+export ENCRYPT_KEY='adfasdfasdf'
+add this line to ~/.zshenv for permanence
+echo "$ENCRYPT_KEY" to check
+
+Once the ENCRYPT_KEY env var is set the post_decrypt/encrypt endpoints can be used.
+
+--------------------------------
+
+
+
 
 
 ┌──(kali㉿kaliPerm)-[~]
