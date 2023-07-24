@@ -3,6 +3,10 @@
 # volumes -> maps docker logs folder to folder inside service when mvn 'build image' is called
 # "ENCRYPT_KEY... == obtaining encrypt key env variable when built
 # see .env for GROUP_ID and GLOBAL_NETWORK (as on same network, microservices can communicate with each other.
+# -----> update to check config server up before starting twitter-to-kafka-service:
+# user: root to enable update and curl installation
+# entrypoint: shell.sh == overriding normal entrypoint to ensure .sh runs first
+# original entrypoint ./cnb/lifecycle/launcher is the last line of the .sh
 version: '3.7'
 services:
   twitter-to-kafka-service:
@@ -11,6 +15,8 @@ services:
       - "5005:5005"
     volumes:
       - "./docker-logs:/twitter-to-kafka-service/logs"
+    user: root
+    entrypoint: ["check-config-server-started.sh"]
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xms128m -Xmx256m"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
