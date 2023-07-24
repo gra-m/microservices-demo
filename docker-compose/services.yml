@@ -8,6 +8,7 @@
 # entrypoint: shell.sh == overriding normal entrypoint to ensure .sh runs first
 # original entrypoint ./cnb/lifecycle/launcher is the last line of the .sh
 # localhost:8888 will no longer reach containerized config server -> SPRING_CLOUD_CONFIG_URI..
+# depends_on: added
 version: '3.7'
 services:
   twitter-to-kafka-service:
@@ -16,8 +17,11 @@ services:
       - "5005:5005"
     volumes:
       - "./docker-logs:/twitter-to-kafka-service/logs"
+      - "./check-config-server-started.sh:/usr/local/bin/check-config-server-started.sh"
     user: root
     entrypoint: ["check-config-server-started.sh"]
+    depends_on:
+      - config-server
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xms128m -Xmx256m"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
