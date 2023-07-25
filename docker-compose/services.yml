@@ -32,8 +32,11 @@ services:
       - "TWITTER-TO-KAFKA-SERVICE_ENABLE-MOCK-TWEETS=true"
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+    networks:
+      - ${GLOBAL_NETWORK:-services}
+
   config-server:
-    image: ${GROUP_ID}/twitter.to.kafka.service:${SERVICE_VERSION:-latest}
+    image: ${GROUP_ID}/config-server:${SERVICE_VERSION:-latest}
     ports:
       - "5006:5006"
     volumes:
