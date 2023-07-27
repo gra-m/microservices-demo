@@ -33,7 +33,8 @@
 		<module>kafka/kafka-producer</module>
 		<module>common-config</module>
 		<module>config-server</module>
-	</modules>
+        <module>kafka/kafka-consumer</module>
+    </modules>
 
 	<properties>
 		<java.version>11</java.version>
