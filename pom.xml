@@ -28,12 +28,8 @@
 		<module>twitter-to-kafka-service</module>
         <module>app-config-data</module>
 		<module>kafka</module>
-		<module>kafka/kafka-admin</module>
-		<module>kafka/kafka-model</module>
-		<module>kafka/kafka-producer</module>
 		<module>common-config</module>
 		<module>config-server</module>
-        <module>kafka/kafka-consumer</module>
     </modules>
 
 	<properties>
