@@ -46,7 +46,7 @@
         </dependency>
     </dependencies>
 
-    <!--To create runnable jar file-->
+    <!--This is required to create runnable jar file-->
     <build>
         <plugins>
             <plugin>
