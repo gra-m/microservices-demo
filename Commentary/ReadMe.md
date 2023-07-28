@@ -4,6 +4,14 @@ At this point commit after: b711d87c057be57c273ff1f72d3bc813d3a1c0e3 the system 
 - restart the schema 
 - restart the app ## very much Gaffer taped together but works
 
+## CURL
+- check that config-data is serving on 8888 when that port has been opened in docker file
+```ignorelang
+┌──(kali㉿kaliPerm)-[~/IdeaProjects/microservices-demo/config-server-repository]
+└─$ curl http://localhost:8888/actuator/health                         
+{"status":"UP"}   
+
+```
 ## DOCKER
 - docker-compose -f common.yml -f k_cluster_zoo.yml up --remove-orphans
 - docker images

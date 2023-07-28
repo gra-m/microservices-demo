@@ -24,9 +24,10 @@ public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroMode
     private final KafkaAdminClient kafkaAdminClient;
     private final KafkaConfigData kafkaConfigData;
 
-public TwitterKafkaConsumer(KafkaAdminClient kafkaAdminClient,
+public TwitterKafkaConsumer(
+KafkaAdminClient kafkaAdminClient,
                             KafkaConfigData kafkaConfigData) {
-    this.kafkaListenerEndpointRegistry = new KafkaListenerEndpointRegistry();
+    this.kafkaListenerEndpointRegistry = new KafkaListenerEndpointRegistry() ;
     this.kafkaAdminClient = kafkaAdminClient;
     this.kafkaConfigData = kafkaConfigData;
 }
@@ -39,7 +40,7 @@ public TwitterKafkaConsumer(KafkaAdminClient kafkaAdminClient,
  * @param offsets
  */
 @Override
-@KafkaListener(id = "twitterTopicListener", topics = "{kafka-config.topic-name}")
+@KafkaListener(id = "twitterTopicListener", topics = "${kafka-config.topic-name}")
 public void receive(@Payload List<TwitterAvroModel> messages,
                     @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY)List<Integer> keys,
                     @Header(KafkaHeaders.RECEIVED_PARTITION_ID)List<Integer> partitions,
