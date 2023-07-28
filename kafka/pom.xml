@@ -12,11 +12,5 @@
 
     <artifactId>kafka</artifactId>
 
-    <modules>
-        <module>kafka-admin</module>
-        <module>kafka-consumer</module>
-        <module>kafka-model</module>
-        <module>kafka-producer</module>
-    </modules>
 
 </project>
