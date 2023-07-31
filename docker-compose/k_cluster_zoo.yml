@@ -14,6 +14,7 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zookeeper:2888:3888
+      # NOTE on working dload option kafkaOpts/volumes 4 lines not present and 127.0.0.1 replaces localhost
       KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=ruok"
     volumes:
       - "./volumes/zookeeper/data:/var/lib/zookeeper/data"
@@ -24,11 +25,12 @@ services:
     image: confluentinc/cp-schema-registry:${KAFKA_VERSION}
     hostname: schema-registry
     depends_on:
-        - kafka-broker-1
-        - kafka-broker-2
-        - kafka-broker-3
+      - zookeeper
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
     ports:
-        - "8081:8081"
+      - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'

@@ -1,4 +1,4 @@
-package com.microservices.demo.kafka.to.elastic.service.impl;
+package com.microservices.demo.kafka.to.elastic.service.consumer.impl;
 
 import com.microservices.demo.config.KafkaConfigData;
 import com.microservices.demo.kafka.admin.client.KafkaAdminClient;
@@ -24,13 +24,13 @@ public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroMode
     private final KafkaAdminClient kafkaAdminClient;
     private final KafkaConfigData kafkaConfigData;
 
-public TwitterKafkaConsumer(
-KafkaAdminClient kafkaAdminClient,
-                            KafkaConfigData kafkaConfigData) {
-    this.kafkaListenerEndpointRegistry = new KafkaListenerEndpointRegistry() ;
-    this.kafkaAdminClient = kafkaAdminClient;
-    this.kafkaConfigData = kafkaConfigData;
-}
+    public TwitterKafkaConsumer(KafkaListenerEndpointRegistry listenerEndpointRegistry,
+                                KafkaAdminClient adminClient,
+                                KafkaConfigData configData) {
+        this.kafkaListenerEndpointRegistry = listenerEndpointRegistry;
+        this.kafkaAdminClient = adminClient;
+        this.kafkaConfigData = configData;
+    }
 
 /**
  * topics =  pulled from config-client-kafka_to_elastic.yml
@@ -39,19 +39,18 @@ KafkaAdminClient kafkaAdminClient,
  * @param partitions
  * @param offsets
  */
-@Override
-@KafkaListener(id = "twitterTopicListener", topics = "${kafka-config.topic-name}")
-public void receive(@Payload List<TwitterAvroModel> messages,
-                    @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY)List<Integer> keys,
-                    @Header(KafkaHeaders.RECEIVED_PARTITION_ID)List<Integer> partitions,
-                    @Header(KafkaHeaders.OFFSET)List<Long> offsets) {
-    LOG.info("{} messages received with keys {}, partitions {} and offsets {}. Sending to elastic: Thread id {}",
-    messages.size(),
-    keys.toString(),
-    partitions.toString(),
-    offsets.toString(),
-    Thread.currentThread().getId());
-}
-
-
+    @Override
+    @KafkaListener(id = "twitterTopicListener", topics = "${kafka-config.topic-name}")
+    public void receive(@Payload List<TwitterAvroModel> messages,
+                        @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) List<Integer> keys,
+                        @Header(KafkaHeaders.RECEIVED_PARTITION_ID) List<Integer> partitions,
+                        @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
+    LOG.info("{} messages received with keys {}, partitions {} and offsets {}." +
+                    "Sending to elastic: Thread id {}",
+                messages.size(),
+                keys.toString(),
+                partitions.toString(),
+                offsets.toString(),
+                Thread.currentThread().getId());
+    }
 }

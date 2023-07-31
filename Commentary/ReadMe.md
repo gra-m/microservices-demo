@@ -69,3 +69,7 @@ Q�������������erogenous Java৩��b
 
 ```
 
+# Issues Solved
+
+- 33. Typos found project is now ignoring Autowire issues because of issue with KafkaListenerEndpointRegistry
+
