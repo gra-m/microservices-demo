@@ -10,35 +10,35 @@ import org.springframework.stereotype.Component;
 import twitter4j.Status;
 import twitter4j.StatusAdapter;
 
-/**
- * Listens to mock tweets, converts them to AvroModel and produces them to Kafka event store.
- */
+/** Listens to mock tweets, converts them to AvroModel and produces them to Kafka event store. */
 @Component
 public class TwitterKafkaStatusListener extends StatusAdapter {
-private static final Logger LOG = LoggerFactory.getLogger(TwitterKafkaStatusListener.class);
-private final KafkaConfigData kafkaConfigData;
-private final KafkaProducer<Long, TwitterAvroModel> kafkaProducer;
-private final TwitterStatusToAvroTransformer twitterStatusToAvroTransformer;
+  private static final Logger LOG = LoggerFactory.getLogger(TwitterKafkaStatusListener.class);
+  private final KafkaConfigData kafkaConfigData;
+  private final KafkaProducer<Long, TwitterAvroModel> kafkaProducer;
+  private final TwitterStatusToAvroTransformer twitterStatusToAvroTransformer;
 
-public TwitterKafkaStatusListener(KafkaConfigData kafkaConfigData,
-                                  KafkaProducer<Long, TwitterAvroModel> kafkaProducer,
-                                  TwitterStatusToAvroTransformer twitterStatusToAvroTransformer) {
-    this.kafkaConfigData = kafkaConfigData;
-    this.kafkaProducer = kafkaProducer;
-    this.twitterStatusToAvroTransformer = twitterStatusToAvroTransformer;
-}
+  public TwitterKafkaStatusListener(
+      KafkaConfigData configData,
+      KafkaProducer<Long, TwitterAvroModel> producer,
+      TwitterStatusToAvroTransformer transformer) {
+    this.kafkaConfigData = configData;
+    this.kafkaProducer = producer;
+    this.twitterStatusToAvroTransformer = transformer;
+  }
 
-/**
- * @param status = twitter object
- */
-@Override
-public void onStatus(Status status) {
-    LOG.info("Received status text: '{}' now sending to kafka topic {}", status.getText(),
-    kafkaConfigData.getTopicName());
-    TwitterAvroModel avroModel = twitterStatusToAvroTransformer.getTwitterAvroModelFromStatus(status);
+  /**
+   * @param status = twitter object
+   */
+  @Override
+  public void onStatus(Status status) {
+    LOG.info(
+        "Received status text: '{}' now sending to kafka topic {}",
+        status.getText(),
+        kafkaConfigData.getTopicName());
+    TwitterAvroModel avroModel =
+        twitterStatusToAvroTransformer.getTwitterAvroModelFromStatus(status);
     // partitioning data by UserId on the kafka topic == each user id gets its own partition
     kafkaProducer.send(kafkaConfigData.getTopicName(), avroModel.getUserId(), avroModel);
-}
-
-
+  }
 }
