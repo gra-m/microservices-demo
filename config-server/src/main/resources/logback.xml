@@ -5,5 +5,4 @@
 
     <!-- logback-common.xml is in class path as included in resources folder of app-config-data, no need for path detail here -->
     <include resource="logback-common.xml"/>
-
 </configuration>

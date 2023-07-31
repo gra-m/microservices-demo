@@ -8,23 +8,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.retry.annotation.EnableRetry;
 
 import java.util.Map;
-/**
- * Kafka AdminClient == manage, inspect brokers/topics and configurations
- */
+/** Kafka AdminClient == manage, inspect brokers/topics and configurations */
 @EnableRetry
 @Configuration
 public class KafkaAdminConfig {
-private final KafkaConfigData kafkaConfigData;
+  private final KafkaConfigData kafkaConfigData;
 
-public KafkaAdminConfig(KafkaConfigData kafkaConfigData) {
+  public KafkaAdminConfig(KafkaConfigData kafkaConfigData) {
     this.kafkaConfigData = kafkaConfigData;
-}
+  }
 
-@Bean
-public AdminClient adminClient(){
-    return AdminClient.create(Map.of(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG,
-    kafkaConfigData.getBootstrapServers()));
-}
-
-
+  @Bean
+  public AdminClient adminClient() {
+    return AdminClient.create(
+        Map.of(
+            CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, kafkaConfigData.getBootstrapServers()));
+  }
 }

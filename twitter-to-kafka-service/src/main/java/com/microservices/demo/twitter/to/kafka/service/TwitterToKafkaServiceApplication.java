@@ -41,6 +41,7 @@ public static void main(String[] args) {
  */
 @Override
 public void run(String... args) throws Exception {
+    LOG.info("Twitter->To->Kafka app starts...");
     streamInitializer.init();
     streamRunner.start();
 

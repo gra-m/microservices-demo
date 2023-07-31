@@ -1,7 +1,7 @@
 # Bootstrap is loaded with Spring parent context; before application.yml.
 spring:
   application:
-    name: config-server
+    name: configserver
     # Set up using absolute path of config-server-repository on local machine
   cloud:
     config:
@@ -16,4 +16,3 @@ spring:
     user:
       name: spring_cloud_user
       password: '{cipher}bd7953d3927f2e32783052b0db0c49fbd4bed788ed1125856dd6d59b8abaac87'
-

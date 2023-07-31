@@ -8,7 +8,6 @@
         <artifactId>microservices-demo</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <packaging>pom</packaging>
 
     <artifactId>kafka</artifactId>
 
