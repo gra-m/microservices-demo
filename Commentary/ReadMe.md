@@ -65,11 +65,65 @@ Q�����������������#it went Java�����
 % Reached end of topic twitter-topic [1] at offset 70
 Q�������������erogenous Java৩��b
 % Reached end of topic twitter-topic [1] at offset 71
+```
+# Reinstalling docker
+```ignorelang
+    ┌──(kali㉿kaliPerm)-[~/IdeaProjects/microservices-demo/docker-compose]
+└─$ dpkg -l | grep -i docker          
+ii  docker-buildx-plugin                   0.11.1-1~debian.11~bullseye          amd64        Docker Buildx cli plugin.
+ii  docker-ce                              5:24.0.4-1~debian.11~bullseye        amd64        Docker: the open-source application container engine
+ii  docker-ce-cli                          5:24.0.4-1~debian.11~bullseye        amd64        Docker CLI: the open-source application container engine
+ii  docker-ce-rootless-extras              5:24.0.4-1~debian.11~bullseye        amd64        Rootless support for Docker.
+ii  docker-compose-plugin                  2.19.1-1~debian.11~bullseye          amd64        Docker Compose (V2) plugin for the Docker CLI.
+rc  docker.io                              20.10.24+dfsg1-1+b3                  amd64        Linux container runtime
+ 
+ ┌──(kali㉿kaliPerm)-[~/IdeaProjects/microservices-demo/docker-compose]
+└─$ sudo apt-get purge -y docker-buildx-plugin   
 
+for all of the above
+then do this for
+sudo rm -rf /etc/docker
+/var/lib/docker
+and
+/var/run/docker.sock
+
+Then remove the Network interface 
+sudo ifconfig docker0 down
+
+and Ethernet Bridge
+brctl delbr docker0
+                                                                                                                     
 
 ```
+
+## Reinstall
+```ignorelang
+sudo apt update
+
+sudo apt install -y docker.io
+
+sudo systemctl enable docker --now
+
+```
+
+
+  
+
 
 # Issues Solved
 
 - 33. Typos found project is now ignoring Autowire issues because of issue with KafkaListenerEndpointRegistry
+Then this issue with docker:
+```ignorelang
+      └─$ docker compose up                 
+[+] Running 6/0
+ ✘ kafka-broker-1 Error                                                                                                                                                                                                           0.0s 
+ ✘ kafka-broker-3 Error                                                                                                                                                                                                           0.0s 
+ ✘ config-server Error                                                                                                                                                                                                            0.0s 
+ ✘ schema-registry Error                                                                                                                                                                                                          0.0s 
+ ✘ kafka-broker-2 Error                                                                                                                                                                                                           0.0s 
+ ✘ zookeeper Error                                                                                                                                                                                                                0.0s 
+Error response from daemon: Get "https://com.microservices.demo/v2/": dial tcp: lookup com.microservices.demo on 192.168.178.1:53: no such host
+
+```
 
