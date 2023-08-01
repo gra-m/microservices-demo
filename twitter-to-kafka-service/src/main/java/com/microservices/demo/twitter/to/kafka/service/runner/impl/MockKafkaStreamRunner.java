@@ -152,7 +152,7 @@ private String getFormattedTweet(String[] keywords, int minTweetLength, int maxT
 private String getRandomTweetContent(String[] keywords, int minTweetLength, int maxTweetLength) {
     StringBuilder tweet = new StringBuilder();
     int tweetLength = RANDOM.nextInt((maxTweetLength - minTweetLength) + 1) + minTweetLength;
-    LOG.info("Tweet length is {}", tweetLength);
+    LOG.info("Initial random tweet length was {}, this will change with addition of keywords..", tweetLength);
     return constructRandomTweet(keywords, tweet, tweetLength);
 }
 
