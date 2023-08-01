@@ -1,4 +1,4 @@
-package com.microservices.demo.kafka.to.elastic.service.impl;
+package com.microservices.demo.kafka.to.elastic.service.consumer.impl;
 
 import com.microservices.demo.config.KafkaConfigData;
 import com.microservices.demo.kafka.admin.client.KafkaAdminClient;
@@ -7,6 +7,8 @@ import com.microservices.demo.kafka.to.elastic.service.consumer.KafkaConsumer;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.config.KafkaListenerEndpointRegistry;
 import org.springframework.kafka.support.KafkaHeaders;
@@ -15,8 +17,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
 
 /**
- * Regarding suppressed warning required when trying to constructor inject
- * KafkaListenerEndpointRegistry:
+ * Regarding WORKING suppressed warning required when trying to constructor inject KafkaListenerEndpointRegistry:
  * https://docs.spring.io/spring-kafka/docs/2.3.4.RELEASE/api/org/springframework/kafka/config/KafkaListenerEndpointRegistry.html
  */
 @Service
@@ -26,13 +27,27 @@ public class TwitterKafkaConsumer implements KafkaConsumer<Long, TwitterAvroMode
   private final KafkaAdminClient kafkaAdminClient;
   private final KafkaConfigData kafkaConfigData;
 
-  public TwitterKafkaConsumer(KafkaAdminClient kafkaAdminClient, KafkaConfigData kafkaConfigData) {
-    this.kafkaListenerEndpointRegistry = new KafkaListenerEndpointRegistry();
+  @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
+  public TwitterKafkaConsumer(KafkaAdminClient kafkaAdminClient, KafkaConfigData kafkaConfigData,
+                              KafkaListenerEndpointRegistry kafkaListenerEndpointRegistry) {
+    this.kafkaListenerEndpointRegistry = kafkaListenerEndpointRegistry;
     this.kafkaAdminClient = kafkaAdminClient;
     this.kafkaConfigData = kafkaConfigData;
   }
 
-  /**
+/**
+ * @EventListener -> ApplicationStartedEvent
+ * with this listener config autostart may be changed back to false: config-client-kafka-to-elastic.yml
+ */
+@EventListener
+public void onAppStarted(ApplicationStartedEvent event) {
+  kafkaAdminClient.checkTopicsCreated();
+  LOG.info("TwitterKafkaConsumer says \"Topic/s named {}\" is/are ready for operations",
+  kafkaConfigData.getTopicNamesToCreate().toArray());
+  kafkaListenerEndpointRegistry.getListenerContainer("twitterTopicListener").start();
+}
+
+/**
    * topics = pulled from config-client-kafka_to_elastic.yml
    *
    * @param messages
