@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import twitter4j.TwitterException;
+
 @Component
 @ConditionalOnProperty(name = "twitter-to-kafka-service.enable-v2-tweets", havingValue = "true")
 @ConditionalOnExpression("${twitter-to-kafka-service.enable-v2-tweets} && not ${twitter-to-kafka-service" +

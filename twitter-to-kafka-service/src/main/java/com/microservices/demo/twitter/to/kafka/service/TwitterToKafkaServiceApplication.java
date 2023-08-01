@@ -23,9 +23,9 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan(basePackages = "com.microservices.demo")
 @SpringBootApplication(scanBasePackages = "com.microservices.demo")
 public class TwitterToKafkaServiceApplication implements CommandLineRunner {
+private static final Logger LOG = LoggerFactory.getLogger(TwitterToKafkaServiceApplication.class);
 private final StreamRunner streamRunner;
 private final StreamInitializer streamInitializer;
-private static final Logger LOG = LoggerFactory.getLogger(TwitterToKafkaServiceApplication.class);
 
 public TwitterToKafkaServiceApplication(StreamRunner streamRunner, StreamInitializer streamInitializer) {
     this.streamRunner = streamRunner;

@@ -19,7 +19,7 @@ services:
       - "./docker-logs:/twitter-to-kafka-service/logs"
       - "./check-config-server-started.sh:/usr/local/bin/check-config-server-started.sh"
     user: root
-    entrypoint: ["check-config-server-started.sh"]
+    entrypoint: [ "check-config-server-started.sh" ]
     depends_on:
       - config-server
     environment:
@@ -35,15 +35,15 @@ services:
     networks:
       - ${GLOBAL_NETWORK:-services}
 
-# port 8888 opened in container so kafka-to-elastic-service can access container on http://localhost:8888 when this service is running locally
+  # port 8888 opened in container so kafka-to-elastic-service can access container on http://localhost:8888 when this service is running locally
   # 8888 is specified in config-server application.yml
   config-server:
-    image: ${GROUP_ID}/config-server:${SERVICE_VERSION:-latest}
+    image: ${GROUP_ID}/config.server:${SERVICE_VERSION:-latest}
     ports:
       - "5006:5006"
       - "8888:8888"
     volumes:
-     - "./docker-logs:/config-server/logs"
+      - "./docker-logs:/config-server/logs"
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -Xms128m -Xmx256m"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"

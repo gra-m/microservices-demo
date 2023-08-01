@@ -14,21 +14,23 @@ services:
       ZOOKEEPER_INIT_LIMIT: 5
       ZOOKEEPER_SYNC_LIMIT: 2
       ZOOKEEPER_SERVERS: zookeeper:2888:3888
-      KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=ruok"
-    volumes:
-      - "./volumes/zookeeper/data:/var/lib/zookeeper/data"
-      - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log"
+      # NOTE on working dload option kafkaOpts/volumes 4 lines not present and 127.0.0.1 replaces localhost
+      # KAFKA_OPTS: "-Dzookeeper.4lw.commands.whitelist=ruok"
+    # volumes:
+    #   - "./volumes/zookeeper/data:/var/lib/zookeeper/data"
+    #   - "./volumes/zookeeper/transactions:/var/lib/zookeeper/log"
     networks:
       - ${GLOBAL_NETWORK:-kafka}
   schema-registry:
     image: confluentinc/cp-schema-registry:${KAFKA_VERSION}
     hostname: schema-registry
     depends_on:
-        - kafka-broker-1
-        - kafka-broker-2
-        - kafka-broker-3
+      - zookeeper # addition
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
     ports:
-        - "8081:8081"
+      - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
@@ -46,7 +48,7 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-1:9092,LISTENER_LOCAL://127.0.0.1:19092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-1:9092,LISTENER_LOCAL://localhost:19092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_COMPRESSION_TYPE: producer
@@ -62,7 +64,7 @@ services:
     environment:
       KAFKA_BROKER_ID: 2
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://127.0.0.1:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://localhost:29092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_COMPRESSION_TYPE: producer
@@ -78,7 +80,7 @@ services:
     environment:
       KAFKA_BROKER_ID: 3
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-3:9092,LISTENER_LOCAL://127.0.0.1:39092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-3:9092,LISTENER_LOCAL://localhost:39092
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_COMPRESSION_TYPE: producer

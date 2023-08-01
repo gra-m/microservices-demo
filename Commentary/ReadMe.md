@@ -1,18 +1,24 @@
 # NOTE:
-At this point commit after: b711d87c057be57c273ff1f72d3bc813d3a1c0e3 the system does not run reliably from scratch. 
+
+At this point commit after: b711d87c057be57c273ff1f72d3bc813d3a1c0e3 the system does not run reliably from scratch.
+
 - add the services to intelliJ.
-- restart the schema 
+- restart the schema
 - restart the app ## very much Gaffer taped together but works
 
 ## CURL
+
 - check that config-data is serving on 8888 when that port has been opened in docker file
+
 ```ignorelang
 ┌──(kali㉿kaliPerm)-[~/IdeaProjects/microservices-demo/config-server-repository]
 └─$ curl http://localhost:8888/actuator/health                         
 {"status":"UP"}   
 
 ```
+
 ## DOCKER
+
 - docker-compose -f common.yml -f k_cluster_zoo.yml up --remove-orphans
 - docker images
 - docker image prune -a
@@ -22,18 +28,25 @@ At this point commit after: b711d87c057be57c273ff1f72d3bc813d3a1c0e3 the system 
 - docker system prune -a == clean start
 
 # MAVEN
-- To build microservice image without context test failing: 
+
+- To build microservice image without context test failing:
+
 ```ignorelang
 mvn clean install -DskipTests
 ```
+
 - To change mvn version temporarily:
+
 ```ignorelang
 export JAVA_HOME=~/.jdks/graalvm-ce-11
 ```
+
 - *Or why not just use the maven console in intelliJ??*
 
 ## Kcat
+
 - kcat -L -b 127.0.0.1:19092
+
 ```ignorelang
    ┌──(kali㉿kaliPerm)-[~/IdeaProjects/microservices-demo]
 └─$ kcat -L -b 127.0.0.1:19092
@@ -52,10 +65,11 @@ Metadata for all topics (from broker 1: 127.0.0.1:19092/1):
     partition 1, leader 3, replicas: 2,1,3, isrs: 3,1,2
     partition 2, leader 3, replicas: 1,3,2, isrs: 3,1,2
 ```
+
 ### See messages being sent to kafka:
+
 - kcat -C -b HOST:PORT -t TOPIC_NAME
 - kcat -C -b 127.0.0.1:19092 -t twitter-topic
-
 
 ```yaml
 % Reached end of topic twitter-topic [2] at offset 60
