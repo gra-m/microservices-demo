@@ -43,6 +43,14 @@ export JAVA_HOME=~/.jdks/graalvm-ce-11
 
 - *Or why not just use the maven console in intelliJ??*
 
+## ElasticSearch Docker cluster
+```ignorelang
+linux /etc/sysctl.conf add: 
+vm.max_map_count = 262144
+
+or amount required in error message
+```
+
 ## Kcat
 
 - kcat -L -b 127.0.0.1:19092

@@ -1,0 +1,74 @@
+# Official elasticsearch docker image running with 3 nodes (matching kafka cluster) Also with esearch at least 3 nodes
+# are required to maintain a cluster (1 being down then still allows the minimum master node eligible amount of 2).
+version: '3.7'
+services:
+  elastic-1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION:-latest}
+    hostname: elastic-1
+    environment:
+      # unique
+      - node.name=elastic-1
+      # same for each in
+      - cluster.name=es-twitter-cluster
+      # find other nodes with
+      - discovery.seed_hosts=elastic-2,elastic-3
+      # those that could be initial master
+      - cluster.initial_master_nodes=elastic-1,elastic-2,elastic-3
+      # disables swapping, OS swapping is very back for es node performance
+      - bootstrap.memory_lock=true
+      # JVM memory variables set to 512mb
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    # provides es with permission to lock memory
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data01:/usr/share/elasticsearch/data
+    # open port to reach cluster from outside container
+    ports:
+      - 9200:9200
+    networks:
+      - ${GLOBAL_NETWORK:-elastic}
+  elastic-2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    environment:
+      - node.name=elastic-2
+      - cluster.name=es-twitter-cluster
+      - discovery.seed_hosts=elastic-1,elastic-3
+      - cluster.initial_master_nodes=elastic-1,elastic-2,elastic-3
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data02:/usr/share/elasticsearch/data
+    networks:
+      - ${GLOBAL_NETWORK:-elastic}
+  elastic-3:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    environment:
+      - node.name=elastic-3
+      - cluster.name=es-twitter-cluster
+      - discovery.seed_hosts=elastic-1,elastic-2
+      - cluster.initial_master_nodes=elastic-1,elastic-2,elastic-3
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - data03:/usr/share/elasticsearch/data
+    networks:
+      - ${GLOBAL_NETWORK:-elastic}
+
+volumes:
+  data01:
+    driver: local
+  data02:
+    driver: local
+  data03:
+    driver: local

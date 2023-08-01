@@ -1,0 +1,58 @@
+POST http://localhost:9200/twitter-index/_doc/1
+Accept: application/json
+content-type: application/json
+
+{
+"userId": "1",
+"id": "1",
+"createdAt": "2020-01-01T23:00:50+0000",
+"text": "test multi word"
+}
+
+> 2023-08-01T203011.201.json
+
+###
+PUT http://localhost:9200/twitter-index
+Accept: application/json
+content-type: application/json
+
+
+ {
+    "mappings": {
+        "properties": {
+            "userId": {
+                "type": "long"
+            },
+            "id": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            },
+            "createdAt": {
+                "type": "date",
+		"format": "yyyy-MM-dd'T'HH:mm:ssZZ"
+            },
+            "text": {
+                "type": "text",
+                "fields": {
+                    "keyword": {
+                        "type": "keyword",
+                        "ignore_above": 256
+                    }
+                }
+            }
+        }
+    }
+}
+
+> 2023-08-01T202426.200.json
+
+###
+GET http://localhost:9200
+Accept: application/json
+
+<> 2023-08-01T200512.200.json
