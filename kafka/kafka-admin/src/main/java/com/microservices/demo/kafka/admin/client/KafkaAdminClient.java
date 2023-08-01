@@ -3,6 +3,10 @@ package com.microservices.demo.kafka.admin.client;
 import com.microservices.demo.config.KafkaConfigData;
 import com.microservices.demo.config.RetryConfigData;
 import com.microservices.demo.kafka.admin.exception.KafkaClientException;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -15,12 +19,6 @@ import org.springframework.retry.RetryContext;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.ExecutionException;
-import java.util.stream.Collectors;
 
 @Component
 public class KafkaAdminClient {
@@ -50,9 +48,9 @@ public class KafkaAdminClient {
       createTopicsResult = retryTemplate.execute(this::doCreateTopics);
       LOG.info("Create topic result {}", createTopicsResult.values().values());
     } catch (Throwable t) {
-      throw new KafkaClientException(
-          "Reached max number of retries for creating kafka topic(s)!", t);
+      throw new KafkaClientException("Reached max number of retry for creating kafka topic(s)!", t);
     }
+
     checkTopicsCreated();
   }
 
@@ -115,20 +113,18 @@ public class KafkaAdminClient {
     try {
       Thread.sleep(sleepTimeMs);
     } catch (InterruptedException e) {
-      throw new KafkaClientException(
-          String.format("Thread.sleep (%d) interrupted in KafkaAdminClient", sleepTimeMs), e);
+      throw new KafkaClientException("Error while sleeping for waiting new created topics!!");
     }
   }
 
   private void checkMaxRetry(int retry, Integer maxRetry) {
     if (retry > maxRetry) {
-      throw new KafkaClientException(
-          String.format("Max retries (%d) exceeded when checking if topic created", maxRetry));
+      throw new KafkaClientException("Reached max number of retry for reading kafka topic(s)!");
     }
   }
 
   private boolean isTopicCreated(Collection<TopicListing> topics, String topicName) {
-    if (Objects.isNull(topics)) {
+    if (topics == null) {
       return false;
     }
     return topics.stream().anyMatch(topic -> topic.name().equals(topicName));
@@ -157,35 +153,29 @@ public class KafkaAdminClient {
   private Collection<TopicListing> getTopics() {
     Collection<TopicListing> topics;
     try {
-      topics = retryTemplate.execute(retryContext -> doGetTopics(retryContext));
+      topics = retryTemplate.execute(this::doGetTopics);
     } catch (Throwable t) {
-      throw new KafkaClientException("Reached max number of retries for reading kafka topics!", t);
+      throw new KafkaClientException("Reached max number of retry for reading kafka topic(s)!", t);
     }
     return topics;
   }
 
-  /**
-   * First log name of topics that we believe have been created, and the current retrieval attempt,
-   * then return created topics from the cluster
-   *
-   * @param retryContext
-   * @return
-   */
-  private Collection<TopicListing> doGetTopics(RetryContext retryContext) {
+/**
+ * First log name of topics that we believe have been created, and the current retrieval attempt,
+ * then return created topics from the cluster
+ *
+ * @param retryContext
+ * @return
+ */
+  private Collection<TopicListing> doGetTopics(RetryContext retryContext)
+      throws ExecutionException, InterruptedException {
     LOG.info(
         "Reading kafka topic {}, attempt {}",
         kafkaConfigData.getTopicNamesToCreate().toArray(),
         retryContext.getRetryCount());
-    Collection<TopicListing> topics = null;
-    try {
-      topics = adminClient.listTopics().listings().get();
-      if (Objects.nonNull(topics)) {
-         topics.forEach(topic -> LOG.debug("Topic with name {}", topic.name()));
-      }
-    } catch (InterruptedException e) {
-      throw new KafkaClientException("Unable to retrieve topics from adminClient", e);
-    } catch (ExecutionException e) {
-      throw new KafkaClientException("Unable to retrieve topics from adminClient", e);
+    Collection<TopicListing> topics = adminClient.listTopics().listings().get();
+    if (topics != null) {
+      topics.forEach(topic -> LOG.debug("Topic with name {}", topic.name()));
     }
     return topics;
   }

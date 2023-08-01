@@ -38,21 +38,22 @@ Once the ENCRYPT_KEY env var is set the post_decrypt/encrypt endpoints can be us
       .hN+           /d:    -MMMmhs/-.`   .MMMh   .ss+-                 `yy`       sMMN`     :N.
      :mN/           `N/     `o/-`         :MMMo   +MMMN-         .`      `ds       mMMh      do
     /NN/            `N+....--:/+oooosooo+:sMMM:   hMMMM:        `my       .m+     -MMM+     :N.
-/NMo              -+ooooo+/:-....`...:+hNMN.  `NMMMd`        .MM/       -m:    oMMN.     hs
--NMd`                                    :mm   -MMMm- .s/     -MMm.       /m-   mMMd     -N.
-`mMM/                                      .-   /MMh. -dMo     -MMMy        od. .MMMs..---yh
-+MMM.                                           sNo`.sNMM+     :MMMM/        sh`+MMMNmNm+++-
-mMMM-                                           /--ohmMMM+     :MMMMm.       `hyymmmdddo
-MMMMh.                  ````                  `-+yy/`yMMM/     :MMMMMy       -sm:.``..-:-.`
-dMMMMmo-.``````..-:/osyhddddho.           `+shdh+.   hMMM:     :MmMMMM/   ./yy/` `:sys+/+sh/
-.dMMMMMMmdddddmmNMMMNNNNNMMMMMs           sNdo-      dMMM-  `-/yd/MMMMm-:sy+.   :hs-      /N`
-`/ymNNNNNNNmmdys+/::----/dMMm:          +m-         mMMM+ohmo/.` sMMMMdo-    .om:       `sh
-`.-----+/.`       `.-+hh/`         `od.          NMMNmds/     `mmy:`     +mMy      `:yy.
-/moyso+//+ossso:.           .yy`          `dy+:`         ..       :MMMN+---/oys:
-/+m:  `.-:::-`               /d+                                    +MMMMMMMNh:`
-+MN/                        -yh.                                     `+hddhy+.
-/MM+                       .sh:
-:NMo                      -sh/
+
+/NMo -+ooooo+/:-....`...:+hNMN.  `NMMMd`        .MM/ -m:    oMMN. hs
+-NMd`                                    :mm -MMMm- .s/ -MMm. /m- mMMd -N.
+`mMM/ .- /MMh. -dMo -MMMy        od. .MMMs..---yh
++MMM. sNo`.sNMM+     :MMMM/ sh`+MMMNmNm+++-
+mMMM- /--ohmMMM+     :MMMMm.       `hyymmmdddo
+MMMMh.                  ````                  `-+yy/`yMMM/     :MMMMMy -sm:.``..-:-.`
+dMMMMmo-.``````..-:/osyhddddho.           `+shdh+. hMMM:     :MmMMMM/ ./yy/` `:sys+/+sh/
+.dMMMMMMmdddddmmNMMMNNNNNMMMMMs           sNdo- dMMM-  `-/yd/MMMMm-:sy+.   :hs- /N`
+`/ymNNNNNNNmmdys+/::----/dMMm:          +m- mMMM+ohmo/.` sMMMMdo- .om:       `sh
+`.-----+/.`       `.-+hh/`         `od. NMMNmds/     `mmy:`     +mMy      `:yy.
+/moyso+//+ossso:. .yy`          `dy+:`         ..       :MMMN+---/oys:
+/+m:  `.-:::-`               /d+ +MMMMMMMNh:`
++MN/ -yh.                                     `+hddhy+.
+/MM+ .sh:
+:NMo -sh/
 -NMs                    `/yy:
 .NMy                  `:sh+.
 `mMm`               ./yds-
@@ -60,9 +61,7 @@ dMMMMmo-.``````..-:/osyhddddho.           `+shdh+.   hMMM:     :MmMMMM/   ./yy/`
 +NMMMMMMMMMMMMMMMMms:`
 -+shmNMMMNmdy+:`
 
-
                                                                  Now attempting installation...
-
 
 Looking for a previous installation of SDKMAN...
 Looking for unzip...
@@ -75,6 +74,7 @@ Getting available candidates...
 Prime platform file...
 Prime the config file...
 Installing script cli archive...
+
 * Downloading...
   ######################################################################## 100.0%
 * Checking archive integrity...
@@ -83,6 +83,7 @@ Installing script cli archive...
 * Cleaning up...
 
 Installing script cli archive...
+
 * Downloading...
   ######################################################################## 100.0%
 * Checking archive integrity...
@@ -97,10 +98,7 @@ Added sdkman init snippet to /home/kali/.bashrc
 Attempt update of zsh profile...
 Updated existing /home/kali/.zshrc
 
-
-
 All done!
-
 
 You are subscribed to the STABLE channel.
 
@@ -128,19 +126,19 @@ SDKMAN!
 script: 5.18.2
 native: 0.3.2
 
-
        ┌──(kali㉿kaliPerm)-[~/IdeaProjects/microservices-demo]
+
 └─$ sdk install springboot
 
 Downloading: springboot 3.1.2
 
 In progress...
 
-################################################################################################################################################################################################################################ 100.0%
+################################################################################################################################################################################################################################
+100.0%
 
 Installing: springboot 3.1.2
 Done installing!
-
 
 Setting springboot 3.1.2 as default.
 
@@ -148,6 +146,7 @@ Setting springboot 3.1.2 as default.
 Check installed in ~/.sdkman/candidates/springboot
 
 ```
+
 then check for latest version of:
 <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-cli -->
 <dependency>

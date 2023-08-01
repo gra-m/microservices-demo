@@ -25,7 +25,7 @@ services:
     image: confluentinc/cp-schema-registry:${KAFKA_VERSION}
     hostname: schema-registry
     depends_on:
-      - zookeeper
+      - zookeeper # addition
       - kafka-broker-1
       - kafka-broker-2
       - kafka-broker-3

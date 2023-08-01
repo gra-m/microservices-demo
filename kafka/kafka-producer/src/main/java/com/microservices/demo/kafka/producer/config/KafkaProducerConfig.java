@@ -2,6 +2,9 @@ package com.microservices.demo.kafka.producer.config;
 
 import com.microservices.demo.config.KafkaConfigData;
 import com.microservices.demo.config.KafkaProducerConfigData;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.context.annotation.Bean;
@@ -9,10 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * wrapper class around KafkaProducer brings together configurations from KafkaConfigData and
@@ -29,9 +28,9 @@ public class KafkaProducerConfig<K extends Serializable, V extends SpecificRecor
   private final KafkaProducerConfigData kafkaProducerConfigData;
 
   public KafkaProducerConfig(
-      KafkaConfigData configData, KafkaProducerConfigData producerConfigData) {
-    this.kafkaConfigData = configData;
-    this.kafkaProducerConfigData = producerConfigData;
+      KafkaConfigData kafkaConfigData, KafkaProducerConfigData kafkaProducerConfigData) {
+    this.kafkaConfigData = kafkaConfigData;
+    this.kafkaProducerConfigData = kafkaProducerConfigData;
   }
 
   /**
