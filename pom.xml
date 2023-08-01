@@ -34,6 +34,9 @@
         <module>kafka/kafka-producer</module>
         <module>twitter-to-kafka-service</module>
         <module>kafka-to-elastic-service</module>
+        <module>elastic</module>
+        <module>elastic/elastic-config</module>
+        <module>elastic/elastic-index-client</module>
     </modules>
 
     <properties>
