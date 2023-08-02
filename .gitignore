@@ -1,3 +1,11 @@
+###to update config-client.ymls in cloud-config-server-repository separately
+#didn't work
+!**/cloud-config-server-repository/*.yml
+!**/cloud-config-servr-repository/
+#worked
+cloud-config-server-repository/*.yml
+cloud-config-server-repository/
+####
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
