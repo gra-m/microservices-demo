@@ -11,6 +11,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>elastic-model</module>
+        <module>elastic-index-client</module>
+        <module>elastic-config</module>
     </modules>
 
     <artifactId>elastic</artifactId>

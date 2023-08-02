@@ -18,7 +18,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!--Requirements for twitter v2 api BUT not implemented -->
+        <!--Requirements for twitter v2 api BUT not implemented todo remove these -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
