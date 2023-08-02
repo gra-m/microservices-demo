@@ -1,8 +1,8 @@
 # about: address=*:500? == opening port for remote debugging
 # -Xms128m -Xmx256m == min and max jvm heap sizes
 # volumes -> maps docker logs folder to folder inside service when mvn 'build image' is called
-# "ENCRYPT_KEY... == obtaining encrypt key env variable when built
-# see .env for GROUP_ID and GLOBAL_NETWORK (as on same network, microservices can communicate with each other.
+# "ENCRYPT_KEY..." == obtaining encrypt key env variable when built
+# see .env for GROUP_ID and GLOBAL_NETWORK (as on same network), microservices can communicate with each other.
 # -----> update to check config server up before starting twitter-to-kafka-service:
 # user: root to enable update and curl installation
 # entrypoint: shell.sh == overriding normal entrypoint to ensure .sh runs first
@@ -22,6 +22,9 @@ services:
     entrypoint: [ "check-config-server-started.sh" ]
     depends_on:
       - config-server
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
     environment:
       - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Xms128m -Xmx256m"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
@@ -35,12 +38,45 @@ services:
     networks:
       - ${GLOBAL_NETWORK:-services}
 
+  kafka-to-elastic-service:
+    image: ${GROUP_ID}/kafka.to.elastic.service:${SERVICE_VERSION:-latest}
+    ports:
+      - "5006:5006"
+    volumes:
+      - "./docker-logs:/kafka-to-elastic-service/logs"
+      - "./check-kafka-topics-created.sh:/usr/local/bin/check-kafka-topics-created.sh"
+    user: root
+    entrypoint: [check-kafka-topics-created.sh]
+    depends_on:
+      - config-server
+      - twitter-to-kafka-service
+      - kafka-broker-1
+      - kafka-broker-2
+      - kafka-broker-3
+      - elastic-1
+      - elastic-2
+      - elastic-3
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -Xms128m -Xmx256m"
+      - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
+      - "LOGGING_LEVEL_ROOT=info"
+      - "KAFKA-CONFIG_TOPIC-NAME=twitter-topic"
+      - "KAFKA-CONFIG_BOOTSTRAP-SERVERS=kafka-broker-1:9092, kafka-broker-2:9092, kafka-broker-3:9092"
+      - "KAFKA-CONFIG_SCHEMA-REGISTRY-URL=http://schema-registry:8081"
+      - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
+      - "ELASTIC-CONFIG_INDEX-NAME=twitter-index"
+      - "ELASTIC-CONFIG_CONNECTION-URL=http://elastic-1:9200"
+      - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+      # override the setting in config-client-kafka-to-elastic.yml
+      - "USE-TWITTER_ELASTIC-REPOSITORY-INDEX-CLIENT=true"
+    networks:
+      - ${GLOBAL_NETWORK:-services}
   # port 8888 opened in container so kafka-to-elastic-service can access container on http://localhost:8888 when this service is running locally
   # 8888 is specified in config-server application.yml
   config-server:
     image: ${GROUP_ID}/config.server:${SERVICE_VERSION:-latest}
     ports:
-      - "5006:5006"
+      - "5007:5007"
       - "8888:8888"
     volumes:
       - "./docker-logs:/config-server/logs"
@@ -49,3 +85,5 @@ services:
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}
+
+

@@ -75,7 +75,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <!--<configuration>
+                <configuration>
                     <image>
                         <name>${project.groupId}/kafka.to.elastic.service:${project.version}</name>
                     </image>
@@ -87,7 +87,7 @@
                             <goal>build-image</goal>
                         </goals>
                     </execution>
-                </executions>-->
+                </executions>
             </plugin>
         </plugins>
     </build>
