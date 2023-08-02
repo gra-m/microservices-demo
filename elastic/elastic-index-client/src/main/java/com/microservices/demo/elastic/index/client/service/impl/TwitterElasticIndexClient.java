@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * ElasticsearchOperations vs ElasticsearchRepository:
- * Repo provides convenient methods like save, find etc
+ * Repo provides convenient methods like save, find etc.
  * Ops provides low-level queries like elasticsearch bool and must
  * Ops requires conversion of input object to query object -> see below
  */
