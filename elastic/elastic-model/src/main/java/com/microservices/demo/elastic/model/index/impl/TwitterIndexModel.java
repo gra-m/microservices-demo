@@ -41,10 +41,6 @@ private String text;
 @JsonProperty
 private LocalDateTime createdAt;
 
-/**
- * Automatically created via Lombok but left here for eventual explanation around why interface is needed.
- * @return
- */
 @Override
 public String getId() {
     return id;

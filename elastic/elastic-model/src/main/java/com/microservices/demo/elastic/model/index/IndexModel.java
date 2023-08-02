@@ -1,9 +1,8 @@
 package com.microservices.demo.elastic.model.index;
 
-public interface IndexModel {
 /**
- * Required for???
- * @return
+ * A generic type allowing other IndexModels to be used by ElasticIndexUtil
  */
+public interface IndexModel {
 String getId();
 }
