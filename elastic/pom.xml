@@ -9,13 +9,14 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <packaging>pom</packaging>
+    <artifactId>elastic</artifactId>
+
     <modules>
         <module>elastic-model</module>
         <module>elastic-index-client</module>
         <module>elastic-config</module>
     </modules>
 
-    <artifactId>elastic</artifactId>
 
 
 </project>
