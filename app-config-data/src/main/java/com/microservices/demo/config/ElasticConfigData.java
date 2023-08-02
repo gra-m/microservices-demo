@@ -12,6 +12,6 @@ public class ElasticConfigData {
  */
 private String indexName;
 private String connectionUrl;
-private Integer connectTimeoutMs;
+private Integer connectionTimeoutMs;
 private Integer socketTimeoutMs;
 }

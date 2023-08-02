@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @Builder
-@Document(indexName = "#{elasticConfig.Data.indexName")
+@Document(indexName = "#{elasticConfigData.indexName}")
 public class TwitterIndexModel implements IndexModel {
 
 private static final String PATTERN = "uuuu-MM-dd'T'HH:mm:ssZZ";
