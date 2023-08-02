@@ -52,6 +52,7 @@
         <json.version>20220320</json.version>
         <spring-cloud.version>2.2.6.RELEASE</spring-cloud.version>
         <spring-cloud-dependencies.version>Hoxton.SR9</spring-cloud-dependencies.version>
+        <elasticsearch.version>7.9.1</elasticsearch.version>
     </properties>
 
     <!--Dependencies managed here available to submodules with versions controlled centrally-->
@@ -89,6 +90,16 @@
                 <version>${project.version}</version>
             </dependency>
             <!--EXT-->
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
