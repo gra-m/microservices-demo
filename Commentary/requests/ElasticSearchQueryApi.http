@@ -1,0 +1,190 @@
+### populate index with these 3 posts:  ##############################
+### first run docker compose -f common.yml -f elastic-cluster.yml up --remove-orphans
+POST http://localhost:9200/twitter-index/_doc/1
+Accept: application/json
+content-type: application/json
+
+{
+  "userid": "1",
+  "id": "1",
+  "createdAt": "2023-08-03T10:04:02+0000",
+  "text": "test multi word"
+}
+
+### 2
+POST http://localhost:9200/twitter-index/_doc/2
+Accept: application/json
+content-type: application/json
+
+{
+  "userid": "2",
+  "id": "2",
+  "createdAt": "2023-08-03T10:05:02+0000",
+  "text": "multi word"
+}
+
+### 3
+POST http://localhost:9200/twitter-index/_doc/3
+Accept: application/json
+content-type: application/json
+
+{
+  "userid": "3",
+  "id": "3",
+  "createdAt": "2023-08-03T10:06:02+0000",
+  "text": "word"
+}
+####################### Query via URL ######################
+
+### Get All Data [max 10000 use scroll Api for more]
+GET http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+### Specify return first 2000
+GET http://localhost:9200/twitter-index/_search?size=2000
+Accept: application/json
+content-type: application/json
+
+### Get with id:1
+GET http://localhost:9200/twitter-index/_search?q=id:1
+Accept: application/json
+content-type: application/json
+
+### Get with text contains "multi" should return the two with 'multi' above
+GET http://localhost:9200/twitter-index/_search?q=text:multi
+Accept: application/json
+content-type: application/json
+
+########## Query in json body Elasticsearch DSL Domain Specific Lang #####################
+### Post and TERM works with 1 word only
+POST http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+{
+  "query": {
+    "term": {
+      "text": "multi"
+    }
+  }
+}
+
+### Post and MATCH -> return documents that contain any of the words listed
+POST http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+{
+  "query": {
+    "match": {
+      "text": "test multi word"
+    }
+  }
+}
+
+### Post and TERM fails with multi words as reverse index anaylysis only on individual words, not sentences
+POST http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+{
+"query": {
+"term": {
+"text": "test multi word"
+}
+}
+}
+
+### Post TERM and KEYWORD for quick search without analysis [match.keyword == uses analysis]
+POST http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+{
+  "query": {
+    "term": {
+      "text.keyword": "test multi word"
+    }
+  }
+}
+
+### Post WILDCARD -> slow as requires a scan
+### ? == single character * == zero or more chars
+POST http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+{
+  "query": {
+    "wildcard": {
+      "text": "?ul?*"
+    }
+  }
+}
+
+### Post QUERY_STRING -> more flexible syntax than WILDCARD poss use regular expressions?
+### ? == single character * == zero or more chars
+POST http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+{
+  "query": {
+    "query_string": {
+      "query": "text:?ul?*"
+    }
+  }
+}
+
+### Post BOOL with an array of MUST == all docs that include both test and word
+POST http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+{
+  "from": 0,
+  "size": 20,
+  "query": {
+    "bool":{
+      "must": [
+        {
+        "match": {
+          "text": "test"
+        }
+      },{
+        "match": {
+          "text": "word"
+        }
+      }
+      ]
+    }
+  }
+}
+
+### Post BOOL with an array of SHOULD == all docs that include either test and word
+POST http://localhost:9200/twitter-index/_search
+Accept: application/json
+content-type: application/json
+
+{
+  "from": 0,
+  "size": 20,
+  "query": {
+    "bool":{
+      "should": [
+        {
+          "match": {
+            "text": "test"
+          }
+        },{
+          "match": {
+            "text": "word"
+          }
+        }
+      ]
+    }
+  }
+}
+
+
