@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TwitterElasticQueryClient implements ElasticQueryClient<TwitterIndexModel> {
-  private final Logger LOG = LoggerFactory.getLogger(TwitterElasticQueryClient.class);
+  private static final Logger LOG = LoggerFactory.getLogger(TwitterElasticQueryClient.class);
 
   private final ElasticConfigData elasticConfigData;
   private final ElasticQueryConfigData elasticQueryConfigData;
@@ -56,7 +56,7 @@ public class TwitterElasticQueryClient implements ElasticQueryClient<TwitterInde
   }
 
   @Override
-  public List<TwitterIndexModel> getIndexModelbyText(String text) {
+  public List<TwitterIndexModel> getIndexModeByText(String text) {
     Query query =
         elasticQueryUtil.getSearchQueryByFieldText(elasticQueryConfigData.getTextField(), text);
     return search(query, "{} documents with text {} retrieved successfully", text);

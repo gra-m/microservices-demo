@@ -3,8 +3,11 @@ package com.microservices.demo.elastic.query.client.service;
 import com.microservices.demo.elastic.model.index.IndexModel;
 
 import java.util.List;
+
 public interface ElasticQueryClient<T extends IndexModel> {
-    T getIndexModelById(String id);
-    List<T> getIndexModelbyText(String text);
-    List<T> getAllIndexModels();
+  T getIndexModelById(String id);
+
+  List<T> getIndexModeByText(String text);
+
+  List<T> getAllIndexModels();
 }

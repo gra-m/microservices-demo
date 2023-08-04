@@ -7,7 +7,7 @@ import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration; // becomes a spring managed
-                                                             // configuration class
+// configuration class
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
@@ -15,8 +15,12 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+/**
+ * Base package updated from @EnableElasticsearchRepositories(basePackages =
+ * "com.microservices.demo.elastic.index.client.repository") to catch spring data repo too.
+ */
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.microservices.demo.elastic.index.client.repository")
+@EnableElasticsearchRepositories(basePackages = "com.microservices.demo.elastic")
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
   private final ElasticConfigData elasticConfigData;
 
@@ -49,12 +53,12 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
                         .setSocketTimeout(elasticConfigData.getSocketTimeoutMs())));
   }
 
-/** For use with Elasticsearch repositories:
- * @EnableElasticsearchRepositories
- *
- * @return ElasticsearchOperations
- */
-@Bean
+  /**
+   * For use with Elasticsearch repositories: @EnableElasticsearchRepositories
+   *
+   * @return ElasticsearchOperations
+   */
+  @Bean
   public ElasticsearchOperations elasticsearchTemplate() {
     return new ElasticsearchRestTemplate(elasticsearchClient());
   }
