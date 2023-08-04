@@ -1,4 +1,4 @@
-package com.microservices.demo.elastic.query.client;
+package com.microservices.demo.elastic.query.client.util;
 
 import com.microservices.demo.elastic.model.index.IndexModel;
 import org.elasticsearch.index.query.BoolQueryBuilder;
