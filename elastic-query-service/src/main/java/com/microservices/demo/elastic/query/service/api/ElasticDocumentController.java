@@ -44,12 +44,11 @@ public class ElasticDocumentController {
     return ResponseEntity.ok(elasticQueryServiceResponseModel);
   }
 
-/**
- *
- * @param elasticQueryServiceRequestModel the json automatically serialized into a request model
- * @return
- */
-@PostMapping("/get-document-by-text")
+  /**
+   * @param elasticQueryServiceRequestModel the json automatically serialized into a request model
+   * @return
+   */
+  @PostMapping("/get-document-by-text")
   public @ResponseBody ResponseEntity<List<ElasticQueryServiceResponseModel>> getDocumentByText(
       @RequestBody ElasticQueryServiceRequestModel elasticQueryServiceRequestModel) {
 
@@ -65,6 +64,4 @@ public class ElasticDocumentController {
 
     return ResponseEntity.ok(response);
   }
-
-  
 }
