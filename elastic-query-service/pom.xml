@@ -12,6 +12,11 @@
     <artifactId>elastic-query-service</artifactId>
 
     <dependencies>
+        <!-- for request response model -> Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.microservices.demo</groupId>
             <artifactId>app-config-data</artifactId>
