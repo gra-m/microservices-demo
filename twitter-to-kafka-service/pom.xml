@@ -18,7 +18,8 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
 
-        <!--Requirements for twitter v2 api BUT not implemented todo remove these -->
+        <!--Requirements for twitter v2 api BUT not implemented removed from parents left here for reference
+         for twitter/X api v2
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
@@ -26,7 +27,7 @@
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>

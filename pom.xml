@@ -36,6 +36,7 @@
         <module>kafka-to-elastic-service</module>
         <module>elastic</module>
         <module>common-util</module>
+        <module>elastic-query-service</module>
     </modules>
 
     <properties>
@@ -58,6 +59,11 @@
     <dependencyManagement>
         <dependencies>
             <!--LOCAL-->
+            <dependency>
+                <groupId>com.microservices.demo</groupId>
+                <artifactId>elastic-query-client</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.microservices.demo</groupId>
                 <artifactId>common-util</artifactId>

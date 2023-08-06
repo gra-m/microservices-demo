@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: elastic-query-service
+  # profile must match with the config file created in config server repository
+  profiles:
+    active: elastic_query
+  # that is name includes the prefix config-client and the whole file-name is config-client-elastic-query
+  cloud:
+    config:
+      name: elastic-query-service,config-client
+      uri: http://localhost:8888
+      username: spring_cloud_user
+      password: '{cipher}bd7953d3927f2e32783052b0db0c49fbd4bed788ed1125856dd6d59b8abaac87'
