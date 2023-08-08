@@ -12,6 +12,10 @@
     <artifactId>elastic-query-service</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-hateoas</artifactId>
+        </dependency>
         <!-- for validation of http requests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
