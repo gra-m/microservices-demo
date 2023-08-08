@@ -20,9 +20,9 @@ import org.springframework.stereotype.Service;
  * Ops provides low-level queries like elasticsearch bool and must
  * Ops requires conversion of input object to query object -> see below
  */
-@Primary
+//@Primary
 @Service
-//@ConditionalOnProperty(name = "elastic-config.use-repository-index-client", havingValue = "false")
+@ConditionalOnProperty(name = "elastic-config.use-repository-index-client", havingValue = "false")
 public class TwitterElasticIndexClient implements ElasticIndexClient<TwitterIndexModel> {
   private static final Logger LOG = LoggerFactory.getLogger(TwitterElasticIndexClient.class);
   private final ElasticConfigData elasticConfigData;
