@@ -12,7 +12,12 @@
     <artifactId>elastic-query-service</artifactId>
 
     <dependencies>
-        <!-- for request response model -> Lombok -->
+        <!-- for validation of http requests -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <!-- for request/response model -> Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
