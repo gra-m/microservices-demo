@@ -14,13 +14,13 @@ content-type: application/json
 
 ### 2a GetMapping("/{id}")
 # @no-cookie-jar
-GET http://localhost:8183/elastic-query-service/documents/?id=4
+GET http://localhost:8183/elastic-query-service/documents/1
 Accept: application/json
 content-type: application/json
 
 ### 2b GetMapping("/{id}") InMemoryAuthentication
 # @no-cookie-jar
-GET http://localhost:8183/elastic-query-service/documents/?id=4
+GET http://localhost:8183/elastic-query-service/documents/1
 Authorization: basic {{username}} {{password}}
 Accept: application/json
 content-type: application/json
@@ -33,8 +33,7 @@ Accept: application/json
 content-type: application/json
 
 {
-  "id": "4",
-  "text": "Working not personal"
+  "text": "test"
 }
 ### 3b returning:
 ##         {

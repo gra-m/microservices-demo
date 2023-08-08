@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class TwitterElasticQueryService implements ElasticQueryService {
-private static Logger LOG = LoggerFactory.getLogger(TwitterElasticQueryService.class);
+private static final Logger LOG = LoggerFactory.getLogger(TwitterElasticQueryService.class);
 private final ElasticToResponseModelTransformer elasticToResponseModelTransformer;
 
 public TwitterElasticQueryService(ElasticToResponseModelTransformer responseModelTransformer,
@@ -32,7 +32,7 @@ public ElasticQueryServiceResponseModel getDocumentById(String id) {
 @Override
 public List<ElasticQueryServiceResponseModel> getDocumentByText(String text) {
     LOG.info("Querying elasticsearch by text {}", text);
-    return elasticToResponseModelTransformer.getResponseModel(elasticQueryClient.getIndexModelByText(text));
+    return elasticToResponseModelTransformer.getResponseModels(elasticQueryClient.getIndexModelByText(text));
 }
 
 @Override

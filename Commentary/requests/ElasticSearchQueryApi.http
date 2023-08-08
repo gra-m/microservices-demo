@@ -5,7 +5,7 @@ Accept: application/json
 content-type: application/json
 
 {
-  "userid": "1",
+  "userId": "1",
   "id": "1",
   "createdAt": "2023-08-03T10:04:02+0000",
   "text": "test multi word"
@@ -17,7 +17,7 @@ Accept: application/json
 content-type: application/json
 
 {
-  "userid": "2",
+  "userId": "2",
   "id": "2",
   "createdAt": "2023-08-03T10:05:02+0000",
   "text": "multi word"
@@ -29,7 +29,7 @@ Accept: application/json
 content-type: application/json
 
 {
-  "userid": "3",
+  "userId": "3",
   "id": "3",
   "createdAt": "2023-08-03T10:06:02+0000",
   "text": "word"

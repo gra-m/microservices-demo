@@ -55,8 +55,8 @@ public class TwitterElasticQueryClient implements ElasticQueryClient<TwitterInde
         "No document found on elasticsearch query by id with id: " + id);
   }
 
-  @Override
-  public List<TwitterIndexModel> getIndexModeByText(String text) {
+@Override
+  public List<TwitterIndexModel> getIndexModelByText(String text) {
     Query query =
         elasticQueryUtil.getSearchQueryByFieldText(elasticQueryConfigData.getTextField(), text);
     return search(query, "{} documents with text {} retrieved successfully", text);
