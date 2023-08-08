@@ -9,5 +9,5 @@ import org.springframework.context.annotation.Configuration;
 public class UserConfigData {
 private String username;
 private String password;
-private String role;
+private String [] roles;
 }
