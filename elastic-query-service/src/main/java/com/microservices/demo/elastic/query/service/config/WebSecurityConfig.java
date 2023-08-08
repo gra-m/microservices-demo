@@ -45,7 +45,7 @@ public WebSecurityConfig(UserConfigData configData) {
 protected void configure(AuthenticationManagerBuilder auth) throws Exception{
     auth.inMemoryAuthentication()
         .withUser(userConfigData.getUsername())
-        .password("{noop}" + userConfigData.getPassword())
+        .password(userConfigData.getPassword())
         .roles(userConfigData.getRole());
   }
 

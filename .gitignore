@@ -26,6 +26,8 @@ target/
 *.iws
 *.iml
 *.ipr
+*.idea/**
+*.idea
 
 ### logs ###
 *.log
@@ -43,3 +45,6 @@ build/
 ### VS Code ###
 .vscode/
 !/.gitignore
+### Local Environment file
+/Commentary/requests/http-client.private.env.json
+http-requests-log.http
