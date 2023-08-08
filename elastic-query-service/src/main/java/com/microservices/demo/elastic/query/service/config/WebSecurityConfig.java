@@ -21,18 +21,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Override
   public void configure(HttpSecurity http) throws Exception {
 
-    http
+    /*http
     .httpBasic()
     .and()
     .authorizeRequests()
     .antMatchers("/**").hasRole("USER")
     .and()
-    .csrf().disable();
+    .csrf().disable();*/
 
-/*// to quickly permit all:
+// to quickly permit all:
     http
     .authorizeRequests()
-        .antMatchers("/**").permitAll();*/
+        .antMatchers("/**").permitAll();
   }
 
 /**
@@ -40,11 +40,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  * @param auth
  * @throws Exception
  */
-@Override
+/*@Override
 protected void configure(AuthenticationManagerBuilder auth) throws Exception{
     auth.inMemoryAuthentication()
     .withUser("test")
     .password("{noop}test1234").roles("USER");
 
-  }
+  }*/
 }

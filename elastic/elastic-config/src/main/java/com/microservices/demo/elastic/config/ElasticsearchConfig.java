@@ -24,8 +24,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
   private final ElasticConfigData elasticConfigData;
 
-  public ElasticsearchConfig(ElasticConfigData elasticConfigData) {
-    this.elasticConfigData = elasticConfigData;
+  public ElasticsearchConfig(ElasticConfigData configData) {
+    this.elasticConfigData = configData;
   }
 
   /**
@@ -49,7 +49,7 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
             .setRequestConfigCallback(
                 requestConfigBuilder ->
                     requestConfigBuilder
-                        .setConnectTimeout(elasticConfigData.getConnectionTimeoutMs())
+                        .setConnectTimeout(elasticConfigData.getConnectTimeoutMs())
                         .setSocketTimeout(elasticConfigData.getSocketTimeoutMs())));
   }
 

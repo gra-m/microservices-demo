@@ -15,9 +15,8 @@ import java.util.stream.Collectors;
  * necessary when two or more options are available to Spring
  */
 //@Primary
-@ConditionalOnProperty(name = "elastic-config.use-twitter-elastic-repository-index-client", havingValue = "true",
-matchIfMissing = true)
 @Service
+@ConditionalOnProperty(name = "elastic-config.use-repository-index-client", havingValue = "true")
 public class TwitterElasticRepositoryIndexClient implements ElasticIndexClient<TwitterIndexModel> {
     private static final Logger LOG = LoggerFactory.getLogger(TwitterElasticRepositoryIndexClient.class);
     private final TwitterElasticsearchIndexRepository twitterElasticsearchIndexRepository;

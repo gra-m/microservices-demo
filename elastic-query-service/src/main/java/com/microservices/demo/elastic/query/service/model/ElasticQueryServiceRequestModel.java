@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ElasticQueryServiceRequestModel {
-private String id;
-private String text;
+  private String id;
+  private String text;
 }
