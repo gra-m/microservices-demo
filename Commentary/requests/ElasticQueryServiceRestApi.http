@@ -1,31 +1,46 @@
-#### 1-2 Working with security bypassed
-## 1  GetMapping("/")
+## 1a-2a Working with security bypassed###
+# @no-cookie-jar
+### 1a  GetMapping("/")
 GET http://localhost:8183/elastic-query-service/documents/
 Accept: application/json
 content-type: application/json
 
-###
-## 2 GetMapping("/{id}")
+### 1b GetMapping("/") InMemoryAuthentication
+# @no-cookie-jar
+GET http://localhost:8183/elastic-query-service/documents/
+Authorization: basic {{username}} {{password}}
+Accept: application/json
+content-type: application/json
+
+### 2a GetMapping("/{id}")
+# @no-cookie-jar
 GET http://localhost:8183/elastic-query-service/documents/?id=4
 Accept: application/json
 content-type: application/json
 
-###
-## 3
+### 2b GetMapping("/{id}") InMemoryAuthentication
+# @no-cookie-jar
+GET http://localhost:8183/elastic-query-service/documents/?id=4
+Authorization: basic {{username}} {{password}}
+Accept: application/json
+content-type: application/json
+
+### 3b PostMapping("/get-document-by-text") InMemoryAuthentication
+# @no-cookie-jar
 POST http://localhost:8183/elastic-query-service/documents/get-document-by-text/
+Authorization: basic {{username}} {{password}}
 Accept: application/json
 content-type: application/json
 
 {
   "id": "4",
-  "text": "test multi word"
+  "text": "Working not personal"
 }
-### 3 returning:
-##        {
-##  "timestamp": "2023-08-08T03:51:21.863+00:00",
-##  "status": 403,
-##  "error": "Forbidden",
-##  "message": "",
-##  "path": "/elastic-query-service/documents/get-document-by-text/"
-##}
+### 3b returning:
+##         {
+#    "id": null, # not set in logic though passed
+#    "text": "test multi word",
+#    "userId": null,
+#    "createdAt": null
+#  }
 ###
