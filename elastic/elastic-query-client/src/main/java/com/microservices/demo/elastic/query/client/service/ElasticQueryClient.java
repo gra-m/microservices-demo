@@ -7,7 +7,7 @@ import java.util.List;
 public interface ElasticQueryClient<T extends IndexModel> {
   T getIndexModelById(String id);
 
-  List<T> getIndexModeByText(String text);
+  List<T> getIndexModelByText(String text);
 
   List<T> getAllIndexModels();
 }
