@@ -49,3 +49,4 @@ build/
 /Commentary/requests/http-client.private.env.json
 http-requests-log.http
 /docker-compose/volumes/zookeeper/transactions/version-2/log.*
+/microservices-demo/.idea/httpRequests/http-requests-log.*

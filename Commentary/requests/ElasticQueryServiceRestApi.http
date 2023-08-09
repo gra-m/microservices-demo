@@ -1,52 +1,31 @@
-## 1a-2a Working with security bypassed###
-# @no-cookie-jar
-### 1a  GetMapping("/")
-GET http://localhost:8183/elastic-query-service/documents/
-Accept: application/json
-content-type: application/json
-
-### 1b GetMapping("/")
+### 1 GetMapping("/")
 # @no-cookie-jar
 GET http://localhost:8183/elastic-query-service/documents/
-Authorization: basic {{username}} {{password}}
-Accept: application/json
-content-type: application/json
-
-### 2a GetMapping("/{id}")
-# @no-cookie-jar
-GET http://localhost:8183/elastic-query-service/documents/1
-Accept: application/json
-content-type: application/json
-
-### MEDIA VERSIONING API EXAMPLE HERE 2b GetMapping("/{id}") vnd.api.v1+json
-# @no-cookie-jar
-GET http://localhost:8183/elastic-query-service/documents/1
 Authorization: basic {{username}} {{password}}
 Accept: application/vnd.api.v1+json
 content-type: application/json
 
-### 2c GetMapping("/{id}") vnd.api.v2+json
+### 2 v1 media versioning api example here 2b getmapping("/{id}") vnd.api.v1+json
 # @no-cookie-jar
 GET http://localhost:8183/elastic-query-service/documents/1
-Authorization: basic {{username}} {{password}}
-Accept: application/vnd.api.v2+json
+authorization: basic {{username}} {{password}}
+accept: application/vnd.api.v1+json
 content-type: application/json
 
-### 3b PostMapping("/get-document-by-text")
+### 2 v2 getmapping("/{id}") media versioning api example vnd.api.v2+json
+# @no-cookie-jar
+GET http://localhost:8183/elastic-query-service/documents/1
+authorization: basic {{username}} {{password}}
+accept: application/vnd.api.v2+json
+content-type: application/json
+
+### 3 postmapping("/get-document-by-text")
 # @no-cookie-jar
 POST http://localhost:8183/elastic-query-service/documents/get-document-by-text/
-Authorization: basic {{username}} {{password}}
-Accept: application/json
+authorization: basic {{username}} {{password}}
+accept: application/vnd.api.v1+json
 content-type: application/json
 
 {
   "text": "test"
 }
-### 3b returning:
-##         {
-#    "id": null, # not set in logic though passed
-#    "text": "test multi word",
-#    "userId": null,
-#    "createdAt": null
-#  }
-###
