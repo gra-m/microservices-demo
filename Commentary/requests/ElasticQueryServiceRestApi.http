@@ -18,9 +18,17 @@ GET http://localhost:8183/elastic-query-service/documents/1
 Accept: application/json
 content-type: application/json
 
-### 2b GetMapping("/{id}") InMemoryAuthentication
+
+##################### 2b GetMapping("/v1/{id}") InMemoryAuthentication returns STRING id
 # @no-cookie-jar
-GET http://localhost:8183/elastic-query-service/documents/1
+GET http://localhost:8183/elastic-query-service/documents/v1/1
+Authorization: basic {{username}} {{password}}
+Accept: application/json
+content-type: application/json
+
+##################### 2c GetMapping("/v2/{id}") InMemoryAuthentication returns LONG id
+# @no-cookie-jar
+GET http://localhost:8183/elastic-query-service/documents/v2/1
 Authorization: basic {{username}} {{password}}
 Accept: application/json
 content-type: application/json
