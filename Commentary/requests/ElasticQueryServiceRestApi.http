@@ -5,7 +5,7 @@ GET http://localhost:8183/elastic-query-service/documents/
 Accept: application/json
 content-type: application/json
 
-### 1b GetMapping("/") InMemoryAuthentication
+### 1b GetMapping("/")
 # @no-cookie-jar
 GET http://localhost:8183/elastic-query-service/documents/
 Authorization: basic {{username}} {{password}}
@@ -18,14 +18,21 @@ GET http://localhost:8183/elastic-query-service/documents/1
 Accept: application/json
 content-type: application/json
 
-### 2b GetMapping("/{id}") InMemoryAuthentication
+### MEDIA VERSIONING API EXAMPLE HERE 2b GetMapping("/{id}") vnd.api.v1+json
 # @no-cookie-jar
 GET http://localhost:8183/elastic-query-service/documents/1
 Authorization: basic {{username}} {{password}}
-Accept: application/json
+Accept: application/vnd.api.v1+json
 content-type: application/json
 
-### 3b PostMapping("/get-document-by-text") InMemoryAuthentication
+### 2c GetMapping("/{id}") vnd.api.v2+json
+# @no-cookie-jar
+GET http://localhost:8183/elastic-query-service/documents/1
+Authorization: basic {{username}} {{password}}
+Accept: application/vnd.api.v2+json
+content-type: application/json
+
+### 3b PostMapping("/get-document-by-text")
 # @no-cookie-jar
 POST http://localhost:8183/elastic-query-service/documents/get-document-by-text/
 Authorization: basic {{username}} {{password}}

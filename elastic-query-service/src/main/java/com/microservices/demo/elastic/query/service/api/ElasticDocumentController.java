@@ -3,6 +3,7 @@ package com.microservices.demo.elastic.query.service.api;
 import com.microservices.demo.elastic.query.service.business.ElasticQueryService;
 import com.microservices.demo.elastic.query.service.model.ElasticQueryServiceRequestModel;
 import com.microservices.demo.elastic.query.service.model.ElasticQueryServiceResponseModel;
+import com.microservices.demo.elastic.query.service.model.ElasticQueryServiceResponseModelV2;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ import java.util.List;
  * @ RestController negates need of a @Response annotation
  */
 @RestController
-@RequestMapping(value = "/documents")
+@RequestMapping(value = "/documents", produces = "application/vnd.api.v1+json")
 public class ElasticDocumentController {
   private static final Logger LOG = LoggerFactory.getLogger(ElasticDocumentController.class);
   private final ElasticQueryService elasticQueryService;
@@ -40,6 +41,18 @@ public class ElasticDocumentController {
     return ResponseEntity.ok(response);
   }
 
+  @GetMapping(value = "/{id}", produces = "application/vnd.api.v2+json")
+  public @ResponseBody ResponseEntity<ElasticQueryServiceResponseModelV2> getDocumentByIdV2(
+      @NotEmpty @PathVariable String id) {
+
+    ElasticQueryServiceResponseModel responseModel = elasticQueryService.getDocumentById(id);
+    LOG.debug("Elasticsearch returned document with id {} ", id);
+
+    ElasticQueryServiceResponseModelV2 responseModelV2 = getV2Model(responseModel);
+
+    return ResponseEntity.ok(responseModelV2);
+  }
+
   @GetMapping("/{id}")
   public @ResponseBody ResponseEntity<ElasticQueryServiceResponseModel> getDocumentById(
       @NotEmpty @PathVariable String id) {
@@ -59,9 +72,27 @@ public class ElasticDocumentController {
       @Valid @RequestBody ElasticQueryServiceRequestModel elasticQueryServiceRequestModel) {
 
     List<ElasticQueryServiceResponseModel> response =
-    elasticQueryService.getDocumentByText(elasticQueryServiceRequestModel.getText());
+        elasticQueryService.getDocumentByText(elasticQueryServiceRequestModel.getText());
     LOG.debug("Elastic search returned {} documents", response.size());
 
     return ResponseEntity.ok(response);
+  }
+
+  //////////////////// Version Conversion
+
+  private ElasticQueryServiceResponseModelV2 getV2Model(
+      ElasticQueryServiceResponseModel elasticQueryServiceResponseModel) {
+
+    ElasticQueryServiceResponseModelV2 responseModelV2 =
+        ElasticQueryServiceResponseModelV2.builder()
+            .id(Long.parseLong(elasticQueryServiceResponseModel.getId()))
+            .text(elasticQueryServiceResponseModel.getText())
+            .text2("Version 2 text")
+            .userId(elasticQueryServiceResponseModel.getUserId())
+            .build();
+
+    responseModelV2.add(elasticQueryServiceResponseModel.getLinks());
+
+    return responseModelV2;
   }
 }
