@@ -16,7 +16,7 @@
     <packaging>pom</packaging>
     <name>microservices-demo</name>
     <description>Microservices demo project for Spring Boot</description>
-    <!-- Not the ideal, but, adding to settings not working poss iJ settings issue-->
+
     <repositories>
         <repository>
             <id>confluent</id>
@@ -53,6 +53,7 @@
         <spring-cloud.version>2.2.6.RELEASE</spring-cloud.version>
         <spring-cloud-dependencies.version>Hoxton.SR9</spring-cloud-dependencies.version>
         <elasticsearch.version>7.9.1</elasticsearch.version>
+        <spring-doc-ui.version>1.5.0</spring-doc-ui.version>
     </properties>
 
     <!--Dependencies managed here available to submodules with versions controlled centrally-->
@@ -119,7 +120,12 @@
                 <artifactId>kafka-producer</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <!--EXT-->
+        <!--EXT-->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${spring-doc-ui.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-hateos</artifactId>
