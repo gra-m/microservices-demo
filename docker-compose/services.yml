@@ -89,11 +89,15 @@ services:
   elastic-query-service:
     image: ${GROUP_ID}/elastic.query.service:${SERVICE_VERSION:-latest}
     ports:
-      - "5007:5007"
-      - "8888:8888"
+      - "5008:5008"
+      - "8183:8183"
     volumes:
       - "./docker-logs:/elastic-query-service/logs"
+      - "./check-config-server-started.sh:/usr/local/bin/check-config-server-started.sh"
+    user: root
+    entrypoint: ["check-config-server-started.sh"]
     depends_on:
+      - config-server
       - kafka-to-elastic-service
       - elastic-1
       - elastic-2
