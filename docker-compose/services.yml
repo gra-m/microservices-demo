@@ -67,8 +67,8 @@ services:
       - "ELASTIC-CONFIG_INDEX-NAME=twitter-index"
       - "ELASTIC-CONFIG_CONNECTION-URL=http://elastic-1:9200"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
-      # override the setting in config-client-kafka-to-elastic.yml
-      - "USE-TWITTER_ELASTIC-REPOSITORY-INDEX-CLIENT=true"
+      # This can override the setting in config-client-kafka-to-elastic.yml
+      - "USE-REPOSITORY-INDEX-CLIENT=false"
     networks:
       - ${GLOBAL_NETWORK:-services}
   # port 8888 opened in container so kafka-to-elastic-service can access container on http://localhost:8888 when this service is running locally
@@ -86,4 +86,27 @@ services:
     networks:
       - ${GLOBAL_NETWORK:-services}
 
-
+  elastic-query-service:
+    image: ${GROUP_ID}/elastic.query.service:${SERVICE_VERSION:-latest}
+    ports:
+      - "5007:5007"
+      - "8888:8888"
+    volumes:
+      - "./docker-logs:/elastic-query-service/logs"
+    depends_on:
+      - kafka-to-elastic-service
+      - elastic-1
+      - elastic-2
+      - elastic-3
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -Xms128m -Xmx256m"
+      - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
+      - "LOGGING_LEVEL_ROOT=info"
+      - "ELASTIC-CONFIG_INDEX-NAME=twitter-index"
+      - "ELASTIC-CONFIG_CONNECTION-URL=http://elastic-1:9200"
+      - "SERVER_PORT=8183"
+      - "SERVER_SERVLET_CONTEXT-PATH=/elastic-query-service"
+      - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
+      - "ENCRYPT_KEY=${ENCRYPT_KEY}"
+    networks:
+      - ${GLOBAL_NETWORK:-services}
