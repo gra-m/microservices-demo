@@ -1,0 +1,12 @@
+### /api-docs paths-to-ignore in config-client-elastic_query
+GET http://localhost:8183/elastic-query-service/api-docs
+Accept: application/json
+
+### html rendered swagger doc needs auth copy paste in browser
+GET http://localhost:8183/elastic-query-service/swagger-ui.html
+Authorization: basic {{username}} {{password}}
+Accept: application/json
+
+### get yaml file
+GET http://localhost:8183/elastic-query-service/api-docs.yaml
+Authorization: basic {{username}} {{password}}

@@ -148,4 +148,6 @@ Then this issue with docker:
 Error response from daemon: Get "https://com.microservices.demo/v2/": dial tcp: lookup com.microservices.demo on 192.168.178.1:53: no such host
 
 ```
-
+# SWAGGER:
+Open API documentation added with  f10621d46853693295be15ea34568a8db0e579a3
+See Swagger.http
