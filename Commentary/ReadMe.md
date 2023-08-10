@@ -151,3 +151,13 @@ Error response from daemon: Get "https://com.microservices.demo/v2/": dial tcp: 
 # SWAGGER:
 Open API documentation added with  f10621d46853693295be15ea34568a8db0e579a3
 See Swagger.http
+
+# @61c b468d679a9c10acd3d73c804dd56f670850148b9  this note included in 61d
+- Working run:
+- Elastic cluster docker compose -f common.yml -f  elastic_cluster.yml up --remove-orphans
+- ElasticQueryServiceApplication
+- ConfigServer
+- ElasticQueryWebClientApplication
+- http//:localhost:8184
+- login == test and (decrypt password with post_decrypt.http)
+- search kafka working looks to be default sorted by created at
