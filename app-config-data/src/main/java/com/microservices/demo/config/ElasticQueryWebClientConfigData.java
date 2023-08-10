@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class ElasticQueryWebClientConfigData {
 //sub prefix of elastic-query-web-client (look at config-client-elastic_query_web.yml
 private WebClient webClient;
+private Query queryByText;
 
 // sub-sub prefixes of elastic-query-web-client
 @Data
@@ -21,5 +22,12 @@ public static class WebClient {
     private String contentType;
     private String acceptType;
     private String baseUrl;
+}
+
+@Data
+public static class Query {
+    private String method;
+    private String accept;
+    private String uri;
 }
 }

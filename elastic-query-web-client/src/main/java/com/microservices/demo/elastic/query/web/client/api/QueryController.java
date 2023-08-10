@@ -51,7 +51,7 @@ public String queryByText(@Valid ElasticQueryWebClientRequestModel requestModel,
     model.addAttribute("elasticQueryWebClientResponseModels", responseModels);
     model.addAttribute("searchText", requestModel.getText());
     //model.addAttribute("elasticQueryWebClientRequestModel", ElasticQueryWebClientRequestModel.builder().build());
-    model.addAttribute("elasticQueryWebClientRequestModel", requestModel);
+    model.addAttribute("elasticQueryWebClientRequestModel", requestModel);  // keeps search term on screen
 
     return "home";
 
