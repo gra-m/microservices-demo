@@ -48,7 +48,7 @@ public String queryByText(@Valid ElasticQueryWebClientRequestModel requestModel,
     .text(requestModel.getText())
     .build());
 
-    model.addAttribute("elasticQueryWebClientRequestModels", responseModels);
+    model.addAttribute("elasticQueryWebClientResponseModels", responseModels);
     model.addAttribute("searchText", requestModel.getText());
     //model.addAttribute("elasticQueryWebClientRequestModel", ElasticQueryWebClientRequestModel.builder().build());
     model.addAttribute("elasticQueryWebClientRequestModel", requestModel);
