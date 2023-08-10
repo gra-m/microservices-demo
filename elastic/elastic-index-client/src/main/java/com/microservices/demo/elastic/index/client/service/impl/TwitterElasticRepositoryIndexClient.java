@@ -3,13 +3,13 @@ package com.microservices.demo.elastic.index.client.service.impl;
 import com.microservices.demo.elastic.index.client.repository.TwitterElasticsearchIndexRepository;
 import com.microservices.demo.elastic.index.client.service.ElasticIndexClient;
 import com.microservices.demo.elastic.model.index.impl.TwitterIndexModel;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
 /**
  * @Primary == give higher preference to a bean. Specifically over the other implementation 'TwitterElasticIndexClient'
  * necessary when two or more options are available to Spring

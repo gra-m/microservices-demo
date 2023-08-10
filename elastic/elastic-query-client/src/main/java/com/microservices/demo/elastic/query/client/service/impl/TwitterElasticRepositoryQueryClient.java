@@ -5,13 +5,13 @@ import com.microservices.demo.elastic.model.index.impl.TwitterIndexModel;
 import com.microservices.demo.elastic.query.client.exception.ElasticQueryClientException;
 import com.microservices.demo.elastic.query.client.repository.TwitterElasticSearchQueryRepository;
 import com.microservices.demo.elastic.query.client.service.ElasticQueryClient;
+import java.util.List;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
 /** Marked as primary vs other implementer of ElasticQueryClient - TwitterElasticQueryClient */
 @Primary
 @Service

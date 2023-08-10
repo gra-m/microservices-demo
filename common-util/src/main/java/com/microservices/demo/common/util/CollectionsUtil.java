@@ -2,6 +2,7 @@ package com.microservices.demo.common.util;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * Instead of having this as a component and requiring spring dependency => set up a Singleton in a
  * thread-safe manner

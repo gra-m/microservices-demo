@@ -1,13 +1,12 @@
 package com.microservices.demo.elastic.query.client.util;
 
 import com.microservices.demo.elastic.model.index.IndexModel;
+import java.util.Collections;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.Query;
 import org.springframework.stereotype.Component;
-
-import java.util.Collections;
 
 @Component
 public class ElasticQueryUtil<T extends IndexModel> {

@@ -2,6 +2,9 @@ package com.microservices.demo.elastic.query.web.client.api;
 
 import com.microservices.demo.elastic.query.web.client.model.ElasticQueryWebClientRequestModel;
 import com.microservices.demo.elastic.query.web.client.model.ElasticQueryWebClientResponseModel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -9,9 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 /**
  * Cannot use @RestController here as it auto converts to json, instead @Controller. This is the gateway api into the
  * web application
