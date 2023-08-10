@@ -2,12 +2,10 @@ package com.microservices.demo.elastic.query.web.client.api;
 
 import com.microservices.demo.elastic.query.web.client.model.ElasticQueryWebClientRequestModel;
 import com.microservices.demo.elastic.query.web.client.model.ElasticQueryWebClientResponseModel;
-import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
 
 import com.microservices.demo.elastic.query.web.client.service.ElasticQueryWebClient;
-import com.microservices.demo.elastic.query.web.client.service.impl.TwitterElasticQueryWebClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
