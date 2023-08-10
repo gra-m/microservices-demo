@@ -5,6 +5,9 @@ import com.microservices.demo.elastic.query.web.client.model.ElasticQueryWebClie
 import java.util.ArrayList;
 import java.util.List;
 import javax.validation.Valid;
+
+import com.microservices.demo.elastic.query.web.client.service.ElasticQueryWebClient;
+import com.microservices.demo.elastic.query.web.client.service.impl.TwitterElasticQueryWebClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class QueryController {
 private static final Logger LOG = LoggerFactory.getLogger(QueryController.class);
+
+private final ElasticQueryWebClient elasticQueryWebClient;
+
+public QueryController(ElasticQueryWebClient webClient) {
+    this.elasticQueryWebClient = webClient;
+}
+
 
 @GetMapping("")
 public String index() {
@@ -41,12 +51,8 @@ public String queryByText(@Valid ElasticQueryWebClientRequestModel requestModel,
 
     LOG.info("Querying with text: {}", requestModel.getText());
 
-    //Dummy response model created here
-    List<ElasticQueryWebClientResponseModel> responseModels = new ArrayList<>();
-    responseModels.add(ElasticQueryWebClientResponseModel.builder()
-    .id("100")
-    .text(requestModel.getText())
-    .build());
+    //Now model updated with real data..
+    List<ElasticQueryWebClientResponseModel> responseModels = elasticQueryWebClient.getDataByText(requestModel);
 
     model.addAttribute("elasticQueryWebClientResponseModels", responseModels);
     model.addAttribute("searchText", requestModel.getText());
