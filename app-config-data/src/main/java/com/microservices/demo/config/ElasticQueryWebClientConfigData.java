@@ -10,13 +10,13 @@ import java.util.List;
 @Configuration
 @ConfigurationProperties(prefix = "elastic-query-web-client")
 public class ElasticQueryWebClientConfigData {
-//sub prefix of elastic-query-web-client (look at config-client-elastic_query_web.yml
-private WebClient webClient;
-private Query queryByText;
+  // sub prefix of elastic-query-web-client (look at config-client-elastic_query_web.yml
+  private WebClient webClient;
+  private Query queryByText;
 
-// sub-sub prefixes of elastic-query-web-client
-@Data
-public static class WebClient {
+  // sub-sub prefixes of elastic-query-web-client
+  @Data
+  public static class WebClient {
     private Integer connectTimeoutMs;
     private Integer readTimeoutMs;
     private Integer writeTimeoutMs;
@@ -26,19 +26,19 @@ public static class WebClient {
     private String baseUrl;
     private String serviceId;
     private List<Instance> instances;
-}
+  }
 
-@Data
-public static class Query {
+  @Data
+  public static class Query {
     private String method;
     private String accept;
     private String uri;
-}
+  }
 
-@Data
-public static class Instance {
+  @Data
+  public static class Instance {
     private String id;
     private String host;
     private Integer port;
-}
+  }
 }

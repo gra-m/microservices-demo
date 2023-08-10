@@ -81,7 +81,7 @@ services:
     volumes:
       - "./docker-logs:/config-server/logs"
     environment:
-      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -Xms128m -Xmx256m"
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5007 -Xms128m -Xmx256m"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"
     networks:
       - ${GLOBAL_NETWORK:-services}
@@ -103,7 +103,7 @@ services:
       - elastic-2
       - elastic-3
     environment:
-      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -Xms128m -Xmx256m"
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5008 -Xms128m -Xmx256m"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
       - "LOGGING_LEVEL_ROOT=info"
       - "ELASTIC-CONFIG_INDEX-NAME=twitter-index"
@@ -132,12 +132,12 @@ services:
       - elastic-2
       - elastic-3
     environment:
-      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5006 -Xms128m -Xmx256m"
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5009 -Xms128m -Xmx256m"
       - "LOGGING_LEVEL_COM_MICROSERVICES_DEMO=info"
       - "LOGGING_LEVEL_ROOT=info"
       - "ELASTIC-CONFIG_INDEX-NAME=twitter-index"
       - "ELASTIC-CONFIG_CONNECTION-URL=http://elastic-1:9200"
-      - "SERVER_PORT=8183"
+      - "SERVER_PORT=8185"
       - "SERVER_SERVLET_CONTEXT-PATH=/elastic-query-service"
       - "SPRING_CLOUD_CONFIG_URI=http://config-server:8888"
       - "ENCRYPT_KEY=${ENCRYPT_KEY}"

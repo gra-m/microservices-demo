@@ -17,35 +17,37 @@ import reactor.core.publisher.Flux;
 @Configuration
 public class ElasticQueryServiceInstanceListSupplierConfig implements ServiceInstanceListSupplier {
 
-// Webclient == inner configuration object of ElasticQueryWebClientConfigData...
-private final ElasticQueryWebClientConfigData.WebClient webClientConfig;
+  // Webclient == inner configuration object of ElasticQueryWebClientConfigData...
+  private final ElasticQueryWebClientConfigData.WebClient webClientConfig;
 
-public ElasticQueryServiceInstanceListSupplierConfig(ElasticQueryWebClientConfigData webClientConfigData) {
+  public ElasticQueryServiceInstanceListSupplierConfig(
+      ElasticQueryWebClientConfigData webClientConfigData) {
 
     this.webClientConfig = webClientConfigData.getWebClient();
-}
+  }
 
-@Override
-public String getServiceId() {
+  @Override
+  public String getServiceId() {
     return webClientConfig.getServiceId();
-}
+  }
 
-/**
- * Flux is a reactive stream that can emit 0-n elements
- *
- * @return
- */
-@Override
-public Flux<List<ServiceInstance>> get() {
+  /**
+   * Flux is a reactive stream that can emit 0-n elements
+   *
+   * @return
+   */
+  @Override
+  public Flux<List<ServiceInstance>> get() {
     return Flux.just(
-        webClientConfig.getInstances().stream().map(instance -> new DefaultServiceInstance(
-        instance.getId(),
-        getServiceId(),
-        instance.getHost(),
-        instance.getPort(),
-        false
-        )).collect(Collectors.toList()));
-}
-
-
+        webClientConfig.getInstances().stream()
+            .map(
+                instance ->
+                    new DefaultServiceInstance(
+                        instance.getId(),
+                        getServiceId(),
+                        instance.getHost(),
+                        instance.getPort(),
+                        false))
+            .collect(Collectors.toList()));
+  }
 }

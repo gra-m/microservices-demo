@@ -19,50 +19,57 @@ import reactor.netty.tcp.TcpClient;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
-@LoadBalancerClient(name = "elastic-query-service", configuration = ElasticQueryServiceInstanceListSupplierConfig.class)
+@LoadBalancerClient(
+    name = "elastic-query-service",
+    configuration = ElasticQueryServiceInstanceListSupplierConfig.class)
 public class WebClientConfig {
-private final ElasticQueryWebClientConfigData.WebClient elasticQueryWebClientConfigData;
-private final UserConfigData userConfigData;
+  private final ElasticQueryWebClientConfigData.WebClient elasticQueryWebClientConfigData;
+  private final UserConfigData userConfigData;
 
-
-public WebClientConfig(ElasticQueryWebClientConfigData webClientConfigData,
-                       UserConfigData userData) {
+  public WebClientConfig(
+      ElasticQueryWebClientConfigData webClientConfigData, UserConfigData userData) {
     this.elasticQueryWebClientConfigData = webClientConfigData.getWebClient();
     this.userConfigData = userData;
-}
+  }
 
-
-/**
- * Separate bean created for webclient as builder required for LoadBalanced that is not available direct on webclient
- * @return
- *
- * @Bean qualifier "webClientBuilder" allows specific pick up of this builder when injecting it for use elsewhere
- */
-@LoadBalanced
-@Bean("webClientBuilder")
-WebClient.Builder webClientBuilder() {
+  /**
+   * Separate bean created for webclient as builder required for LoadBalanced that is not available
+   * direct on webclient
+   *
+   * @return @Bean qualifier "webClientBuilder" allows specific pick up of this builder when
+   *     injecting it for use elsewhere
+   */
+  @LoadBalanced
+  @Bean("webClientBuilder")
+  WebClient.Builder webClientBuilder() {
     return WebClient.builder()
-    .filter(ExchangeFilterFunctions
-    .basicAuthentication(userConfigData.getUsername(), userConfigData.getPassword()))
-    .baseUrl(elasticQueryWebClientConfigData.getBaseUrl())
-    .defaultHeader(HttpHeaders.CONTENT_TYPE, elasticQueryWebClientConfigData.getContentType())
-    .defaultHeader(HttpHeaders.ACCEPT, elasticQueryWebClientConfigData.getAcceptType())
-    .clientConnector(new ReactorClientHttpConnector(HttpClient.from(getTcpClient())))
-    .codecs(clientCodecConfigurer -> clientCodecConfigurer
-    .defaultCodecs()
-    .maxInMemorySize(elasticQueryWebClientConfigData.getMaxInMemorySize()));
-}
+        .filter(
+            ExchangeFilterFunctions.basicAuthentication(
+                userConfigData.getUsername(), userConfigData.getPassword()))
+        .baseUrl(elasticQueryWebClientConfigData.getBaseUrl())
+        .defaultHeader(HttpHeaders.CONTENT_TYPE, elasticQueryWebClientConfigData.getContentType())
+        .defaultHeader(HttpHeaders.ACCEPT, elasticQueryWebClientConfigData.getAcceptType())
+        .clientConnector(new ReactorClientHttpConnector(HttpClient.from(getTcpClient())))
+        .codecs(
+            clientCodecConfigurer ->
+                clientCodecConfigurer
+                    .defaultCodecs()
+                    .maxInMemorySize(elasticQueryWebClientConfigData.getMaxInMemorySize()));
+  }
 
-private TcpClient getTcpClient() {
+  private TcpClient getTcpClient() {
     return TcpClient.create()
-    .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, elasticQueryWebClientConfigData.getConnectTimeoutMs())
-    .doOnConnected(connection -> {
-        connection.addHandlerLast(
-        new ReadTimeoutHandler(elasticQueryWebClientConfigData.getReadTimeoutMs(), TimeUnit.MILLISECONDS));
-        connection.addHandlerLast(
-        new WriteTimeoutHandler(elasticQueryWebClientConfigData.getWriteTimeoutMs(), TimeUnit.MILLISECONDS));
-    });
-}
-
-
+        .option(
+            ChannelOption.CONNECT_TIMEOUT_MILLIS,
+            elasticQueryWebClientConfigData.getConnectTimeoutMs())
+        .doOnConnected(
+            connection -> {
+              connection.addHandlerLast(
+                  new ReadTimeoutHandler(
+                      elasticQueryWebClientConfigData.getReadTimeoutMs(), TimeUnit.MILLISECONDS));
+              connection.addHandlerLast(
+                  new WriteTimeoutHandler(
+                      elasticQueryWebClientConfigData.getWriteTimeoutMs(), TimeUnit.MILLISECONDS));
+            });
+  }
 }
